@@ -1,28 +1,31 @@
 function hospital(input) {
 
-    let period = Number(input[0]);
-    let inputLength = input.length;
+    let period = +input[0];
 
     let doctors = 7;
 
-    let notExaminedPatients = 0;
-    let examinedPatients = 0;
+    let treatedPatients = 0;
+    let untreatedPatients = 0;
 
-    for (let i = 1; i < period; i++) {
+    for (let i = 1; i <= period; i++) {
 
-        if (doctors < Number(input[i])) {
+        let patientsPerDay = +input[i];
 
-            notExaminedPatients += Number(input[i]) - doctors;
-        } else {
-            examinedPatients += examinedPatients
+        if (i % 3 === 0 && untreatedPatients > treatedPatients) {
+            doctors++
         }
-    
 
+        if (patientsPerDay <= doctors) {
+            treatedPatients += patientsPerDay;
+        } else {
+            treatedPatients += doctors;
+            untreatedPatients += (patientsPerDay - doctors);
+        }
 
-        console.log(notExaminedPatients);
-        console.log(examinedPatients);
     }
 
+    console.log(`Treated patients: ${treatedPatients}.`);
+    console.log(`Untreated patients: ${untreatedPatients}.`);
 
 }
 hospital(["4", "7", "27", "9", "1"]);
