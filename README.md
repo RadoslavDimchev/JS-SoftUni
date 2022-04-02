@@ -1,1 +1,1 @@
-# JavaScript Path - SoftUni
+# JavaScript - SoftUni
