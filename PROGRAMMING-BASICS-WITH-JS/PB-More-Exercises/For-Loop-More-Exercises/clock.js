@@ -1,15 +1,9 @@
 function clock() {
 
-    let hours = 0;
-
-    while (hours <= 23) {
-
-        for (let minutes = 0; minutes <= 59; minutes++) {
-
+    for (let hours = 0; hours < 24; hours++) {
+        for (let minutes = 0; minutes < 60; minutes++) {
             console.log(`${hours} : ${minutes}`);
         }
-        hours++;
     }
-
 }
 clock();

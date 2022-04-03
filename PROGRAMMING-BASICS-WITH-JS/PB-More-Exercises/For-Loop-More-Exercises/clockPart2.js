@@ -1,17 +1,11 @@
 function clockPart2() {
 
-    let hours = 0;
-
-    while (hours <= 23) {
-
-        for (let min = 0; min <= 59; min++) {
-
-            for (let sec = 0; sec <= 59; sec++) {
-
-                console.log(`${hours} : ${min} : ${sec}`);
+    for (let hours = 0; hours < 24; hours++) {
+        for (let minutes = 0; minutes < 60; minutes++) {
+            for (let seconds = 0; seconds < 60; seconds++) {
+                console.log(`${hours} : ${minutes} : ${seconds}`);
             }
         }
-        hours++;
     }
 
 }
