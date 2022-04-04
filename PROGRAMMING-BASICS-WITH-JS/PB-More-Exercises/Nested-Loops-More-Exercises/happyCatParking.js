@@ -1,0 +1,7 @@
+function happyCatParking(input) {
+
+
+
+
+}
+happyCatParking

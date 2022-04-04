@@ -1,0 +1,6 @@
+function profit(input) {
+
+
+
+}
+profit

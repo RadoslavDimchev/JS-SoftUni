@@ -1,0 +1,6 @@
+function secretDoorsLock(input) {
+
+
+
+}
+secretDoorsLock

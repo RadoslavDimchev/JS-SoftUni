@@ -1,0 +1,6 @@
+function primePairs(input) {
+
+
+
+}
+primePairs
