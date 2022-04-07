@@ -3,114 +3,42 @@ function barcodeGenerator(input) {
     let start = input[0];
     let end = input[1];
 
-    let oddStart = "";
-    let oddEnd = "";
+    let numbers = "";
+    let firstStart = Number(start[0]);
+    let firstEnd = Number(end[0]);
+    let secondStart = Number(start[1]);
+    let secondEnd = Number(end[1]);
+    let thridStart = Number(start[2]);
+    let thridEnd = Number(end[2]);
+    let fourthStart = Number(start[3]);
+    let fourthEnd = Number(end[3]);
 
-    while (start <= end) {
-
-        let firstNumStart = Number(start[0]);
-        let secondNumStart = Number(start[1]);
-        let thirdNumStart = Number(start[2]);
-        let fourthNumStart = Number(start[3]);
-        let firstNumEnd = Number(end[0]);
-        let secondNumEnd = Number(end[1]);
-        let thirdNumEnd = Number(end[2]);
-        let fourthNumEnd = Number(end[3]);
-
-        if (firstNumStart % 2 === 1) {
-            oddStart += firstNumStart;
+    for (let i = firstStart; i <= firstEnd; i++) {
+        if (i % 2 === 1) {
         } else {
-            firstNumStart += 1;
-            oddStart += firstNumStart;
+            continue
         }
-
-        if (secondNumStart % 2 === 1) {
-            oddStart += secondNumStart;
-        } else {
-            secondNumStart += 1;
-            oddStart += secondNumStart;
-        }
-
-        if (thirdNumStart % 2 === 1) {
-            oddStart += thirdNumStart;
-        } else {
-            thirdNumStart += 1;
-            oddStart += thirdNumStart;
-        }
-
-        if (fourthNumStart % 2 === 1) {
-            oddStart += fourthNumStart;
-        } else {
-            fourthNumStart += 1;
-            oddStart += fourthNumStart;
-        }
-
-        if (firstNumEnd % 2 === 1) {
-            oddEnd += firstNumEnd;
-        } else {
-            firstNumEnd -= 1;
-            oddEnd += firstNumEnd;
-        }
-
-        if (secondNumEnd % 2 === 1) {
-            oddEnd += secondNumEnd;
-        } else {
-            secondNumEnd -= 1;
-            oddEnd += secondNumEnd;
-        }
-
-        if (thirdNumEnd % 2 === 1) {
-            oddEnd += thirdNumEnd;
-        } else {
-            thirdNumEnd -= 1;
-            oddEnd += thirdNumEnd;
-        }
-
-        if (fourthNumEnd % 2 === 1) {
-            oddEnd += fourthNumEnd;
-        } else {
-            fourthNumEnd -= 1;
-            oddEnd += fourthNumEnd;
-        }
-
-        let oddStartNum = Number(oddStart);
-        let oddEndNum = Number(oddEnd);
-
-        let finalNumbers = "";
-
-        for (let i = oddStartNum; i <= oddEndNum; i++) {
-
-            let iStr = i + "";
-            let firstNum = iStr[0];
-            let secondNum = iStr[1];
-            let thirdNum = iStr[2];
-            let fourthNum = iStr[3];
-
-            if (firstNum % 2 === 1 && secondNum % 2 === 1 && thirdNum % 2 === 1 && fourthNum % 2 === 1) {
-
-                if (firstNum >= firstNumStart && firstNum <= firstNumEnd) {
-                    iStr = firstNum;
-                }
-                if (secondNum >= secondNumStart && secondNum <= secondNumEnd) {
-                    iStr += secondNum;
-                }
-                if (thirdNum >= thirdNumStart && thirdNum <= thirdNumEnd) {
-                    iStr += thirdNum;
-                }
-                if (fourthNum >= fourthNumStart && fourthNum <= fourthNumEnd) {
-                    iStr += fourthNum;
-                }
-                if (iStr >= 1000) {
-                    finalNumbers += iStr + " ";
-                }
+        for (let j = secondStart; j <= secondEnd; j++) {
+            if (j % 2 === 1) {
             } else {
-                continue;
+                continue
+            }
+            for (let k = thridStart; k <= thridEnd; k++) {
+                if (k % 2 === 1) {
+                } else {
+                    continue
+                }
+                for (let l = fourthStart; l <= fourthEnd; l++) {
+                    if (l % 2 === 1) {
+                    } else {
+                        continue
+                    }
+                    numbers += `${i}${j}${k}${l} `;
+                }
             }
         }
-
-        console.log(finalNumbers);
-        break;
     }
+    console.log(numbers);
 
 }
 barcodeGenerator(["2345", "6789"]);
