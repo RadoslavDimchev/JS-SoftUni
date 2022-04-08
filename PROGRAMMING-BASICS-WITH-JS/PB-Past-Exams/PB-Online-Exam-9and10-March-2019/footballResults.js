@@ -1,25 +1,39 @@
 function footballResults(input) {
 
+    let firstMatch = input[0];
+    let secondMatch = input[1];
+    let thirdMatch = input[2];
+
     let wins = 0;
     let draws = 0;
-    let losts = 0;
+    let losses = 0;
 
-    for (let i = 0; i < 3; i++) {
+    if (firstMatch[0] > firstMatch[2]) {
+        wins++;
+    } else if (firstMatch[0] === firstMatch[2]) {
+        draws++;
+    } else if (firstMatch[0] < firstMatch[2]) {
+        losses++;
+    }
 
-        let host = input[i].charAt(0);
-        let guest = input[i].charAt(2);
+    if (secondMatch[0] > secondMatch[2]) {
+        wins++;
+    } else if (secondMatch[0] === secondMatch[2]) {
+        draws++;
+    } else if (secondMatch[0] < secondMatch[2]) {
+        losses++;
+    }
 
-        if (host > guest) {
-            wins++;
-        } else if (host < guest) {
-            losts++;
-        } else if (host = guest) {
-            draws++;
-        }
+    if (thirdMatch[0] > thirdMatch[2]) {
+        wins++;
+    } else if (thirdMatch[0] === thirdMatch[2]) {
+        draws++;
+    } else if (thirdMatch[0] < thirdMatch[2]) {
+        losses++;
     }
 
     console.log(`Team won ${wins} games.`);
-    console.log(`Team lost ${losts} games.`);
+    console.log(`Team lost ${losses} games.`);
     console.log(`Drawn games: ${draws}`);
 
 }
