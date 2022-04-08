@@ -12,7 +12,7 @@ function easterLunch(input) {
     let finalPrice = easterBreadPrice + eggsPrice + cookiesPrice + paintForEggsPrice;
 
     console.log(finalPrice.toFixed(2));
-}
 
+}
 easterLunch(["3", "2", "3"]);
 easterLunch(["4", "4", "3"]);
