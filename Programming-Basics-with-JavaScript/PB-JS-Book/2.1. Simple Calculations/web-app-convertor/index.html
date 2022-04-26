@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BGN to EUR Converter</title>
+    <script src="converter.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="index.css" type="text/css" />
+</head>
+
+<body>
+    <form class="content-form">
+        <h2 class="title">BGN to EUR Converter</h2>
+        <section class="items">
+            <label for="bgn" class="currency">
+                <span class="item-currency">BGN: </span>
+                <input class="currency-value" type="number" id="bgn" value="0" />
+            </label>
+            <label for="euro" class="currency">
+                <span class="item-currency">EUR: </span>
+                <input class="currency-value" type="text" id="euro" readonly />
+            </label>
+            <input class="primary-btn" type="button" onclick="eurConverter()" value="Convert!" />
+        </section>
+    </form>
+</body>
+
+</html>
