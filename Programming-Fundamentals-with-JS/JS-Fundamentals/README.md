@@ -1,0 +1,1 @@
+This is the folder where are my exercises from labs, exercises and more exrecises from "Programming Fundamentals with JavaScript - May 2022" course from Softuni.
