@@ -1,0 +1,1 @@
+This is the folder where I upload the more exercises from the course "Programming-Fundamentals-with-JS".
