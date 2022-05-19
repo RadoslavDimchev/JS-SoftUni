@@ -1,1 +1,1 @@
-This is the folder where I upload the tasks from the course labs.
+This is the folder where I upload the labs exercises from the course "Programming-Fundamentals-with-JS".
