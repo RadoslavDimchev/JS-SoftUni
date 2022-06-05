@@ -1,30 +1,57 @@
 function catalogue(array) {
-    let products = [];
+    let products = {};
     for (let tokens of array) {
         let info = tokens.split(' : ');
         let name = info[0];
         let price = Number(info[1]);
-        let product = {
-            name,
-            price
-        };
-        products.push(product);
+        products[name] = price;
     }
 
-    products.sort((a, b) => a.name.localeCompare(b.name));
+    let sortedProducts = Object.keys(products);
+    sortedProducts.sort((a, b) => a.localeCompare(b));
 
     let pastLetter = '';
-    for (let currentProduct of products) {
-        let currentLetter = currentProduct.name.charAt(0).toUpperCase();
+    for (let currentProduct of sortedProducts) {
+        let currentLetter = currentProduct.charAt(0).toUpperCase();
         if (currentLetter === pastLetter) {
-            console.log(`  ${currentProduct.name}: ${currentProduct.price}`);
+            console.log(`  ${currentProduct}: ${products[currentProduct]}`);
         } else {
             pastLetter = currentLetter;
             console.log(currentLetter);
-            console.log(`  ${currentProduct.name}: ${currentProduct.price}`);
+            console.log(`  ${currentProduct}: ${products[currentProduct]}`);
         }
     }
 }
+
+// Second solution
+
+// function catalogue(array) {
+//     let products = [];
+//     for (let tokens of array) {
+//         let info = tokens.split(' : ');
+//         let name = info[0];
+//         let price = Number(info[1]);
+//         let product = {
+//             name,
+//             price
+//         };
+//         products.push(product);
+//     }
+
+//     products.sort((a, b) => a.name.localeCompare(b.name));
+
+//     let pastLetter = '';
+//     for (let currentProduct of products) {
+//         let currentLetter = currentProduct.name.charAt(0).toUpperCase();
+//         if (currentLetter === pastLetter) {
+//             console.log(`  ${currentProduct.name}: ${currentProduct.price}`);
+//         } else {
+//             pastLetter = currentLetter;
+//             console.log(currentLetter);
+//             console.log(`  ${currentProduct.name}: ${currentProduct.price}`);
+//         }
+//     }
+// }
 
 catalogue([
     'Appricot : 20.4',
