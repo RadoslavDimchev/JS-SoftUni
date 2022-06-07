@@ -1,0 +1,1 @@
+This folder contains the exercises from common lectures in Softuni from the course "Programming Fundamentals with JavaScript - May 2022"!
