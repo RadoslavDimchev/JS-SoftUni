@@ -2,14 +2,14 @@ function movies(array) {
     const movies = [];
 
     for (const movieInfo of array) {
-        if (isIncludes('addMovie')) {
+        if (isIncludes(movieInfo, 'addMovie')) {
             const movie = movieInfo.replace('addMovie ', '');
             movies.push({ name: movie });
 
-        } else if (isIncludes('directedBy')) {
+        } else if (isIncludes(movieInfo, 'directedBy')) {
             checkAndSetKVP(movieInfo, ' directedBy ', 'director');
 
-        } else if (isIncludes('onDate')) {
+        } else if (isIncludes(movieInfo, 'onDate')) {
             checkAndSetKVP(movieInfo, ' onDate ', 'date');
         }
     }
