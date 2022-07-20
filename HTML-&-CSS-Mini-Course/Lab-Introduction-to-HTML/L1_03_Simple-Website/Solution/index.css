@@ -1,0 +1,52 @@
+body {
+  margin: 0;
+  font-family: Helvetica;
+  height: 100%;
+}
+
+nav {
+  background-color: rgb(35, 68, 103);
+  padding: 10px;
+}
+
+nav ul {
+  text-align: center;
+}
+
+nav ul li {
+  display: inline-block;
+  padding-right: 60px;
+  border-radius: 5px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+section h1 {
+  text-align: center;
+}
+
+section article {
+  padding-left: 25%;
+}
+
+section article p {
+  padding-right: 25%;
+
+}
+
+footer {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  padding: 10px;
+  background-color: rgb(35, 68, 103);
+}
+
+footer p {
+  color: white;
+  text-align: center;
+}

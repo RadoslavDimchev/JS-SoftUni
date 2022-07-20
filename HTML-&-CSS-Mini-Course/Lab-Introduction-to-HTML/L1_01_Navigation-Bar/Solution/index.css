@@ -1,0 +1,24 @@
+body {
+  margin: 0;
+  font-family: Helvetica;
+}
+
+nav {
+  background-color: rgb(35, 68, 103);
+  padding: 10px;
+}
+
+nav ul {
+  text-align: center;
+}
+
+nav ul li {
+  display: inline-block;
+  padding-right: 60px;
+  border-radius: 5px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+}
