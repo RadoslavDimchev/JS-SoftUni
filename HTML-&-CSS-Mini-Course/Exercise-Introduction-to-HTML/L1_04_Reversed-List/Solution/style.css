@@ -1,0 +1,23 @@
+section {
+  display: inline-block;
+  background-color: rgb(224, 224, 224);
+  margin-left: 40%;
+  font-family: sans-serif;
+}
+
+section h3 {
+  text-align: center;
+  color: rgb(2, 56, 123);
+  padding-top: 20px;
+}
+
+section ol li {
+  text-decoration: underline;
+  padding-bottom: 10px;
+  color: rgb(74, 74, 74);
+  width: 300px;
+}
+
+section ol {
+  padding-bottom: 20px;
+}
