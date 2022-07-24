@@ -1,0 +1,44 @@
+body {
+  font-family: Open Sans, sans-serif;
+  margin: 50px 250px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+}
+
+header article {
+  width: 27%;
+  padding-left: 20px;
+  border-left: 3px solid #656565;
+}
+
+header h2 {
+  font-weight: 300;
+  font-size: 40px;
+  letter-spacing: 7px;
+  margin: 10px 0;
+}
+
+header article p {
+  color: #656565;
+}
+
+main {
+  margin: 30px auto;
+  line-height: 22px;
+  display: flex;
+  justify-content: space-between;
+}
+
+main article {
+  width: 27%;
+  padding: 0 24px 0 0;
+  font-size: 15px;
+}
+
+main article img {
+  width: 20em;
+  height: 13em;
+}
