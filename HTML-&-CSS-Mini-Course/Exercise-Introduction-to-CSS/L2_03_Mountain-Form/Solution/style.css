@@ -1,0 +1,96 @@
+body {
+  font-family: Lato, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+form {
+  display: flex;
+  flex-direction: row;
+  width: 43%;
+  height: 415px;
+  margin: 5rem auto;
+  border-radius: 5px;
+}
+
+#first {
+  background: linear-gradient(0deg, rgba(128, 1, 1, 0.5) 0%, rgba(0, 119, 180, 0.5) 60%), url(../Requirements-and-Resources/Images/peak.jpg) no-repeat center center;
+  background-size: cover;
+  color: white;
+  width: 45%;
+  border-radius: 10px 0 0 10px;
+}
+
+#first h1 {
+  text-transform: capitalize;
+  font-weight: bold;
+  font-size: 24px;
+  text-align: center;
+  padding: 1.3rem 0;
+}
+
+#first p:nth-child(2) {
+  text-align: center;
+  font-style: italic;
+  padding-top: 17rem;
+}
+
+#first p:nth-child(3) {
+  text-align: center;
+  color: #D3D3D3;
+  padding-top: 0.5rem;
+}
+
+#second {
+  width: 35%;
+  border: 3px solid rgb(56, 8, 42);
+  border-radius: 0 10px 10px 0;
+  padding: 5rem 2rem 0 5rem;
+}
+
+#second label {
+  color: #DAD9DC;
+  text-transform: uppercase;
+  font-size: 13px;
+  width: 100%;
+  display: inline-block;
+  padding-bottom: 0.3rem;
+}
+
+#second input {
+  color: #767373;
+  border: none;
+  border-bottom: 1px solid #767373;
+  font-size: 18px;
+  margin-bottom: 0.8rem;
+  width: 80%;
+}
+
+#password,
+#rep-password {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+#second input[type="submit"] {
+  color: white;
+  text-transform: capitalize;
+  background: rgb(56, 8, 42);
+  border-radius: 5px;
+  width: 120px;
+  padding: 8px 15px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#second>div:nth-child(5)>p {
+  display: inline;
+  cursor: pointer;
+}
+
+#second>div:nth-child(5)>p>span {
+  color: rgb(56, 8, 42);
+}
