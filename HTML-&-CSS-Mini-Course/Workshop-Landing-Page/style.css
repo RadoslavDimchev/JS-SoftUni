@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans&family=PT+Serif&display=swap');
+
+body {
+  font-family: "PT Sans", sans-serif;
+  font-size: 16px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.navigation {
+  padding: 0 20px;
+}
+
+.navigation p {
+  display: inline-block;
+  font-size: 22px;
+  width: 742px;
+}
+
+.navigation p span {
+  color: #50b9e1;
+}
+
+nav {
+  display: inline-block;
+}
+
+nav ul li {
+  display: inline-block;
+  padding-right: 10px;
+}
+
+body>header>section.navigation>nav>ul>li:nth-child(6)>ul>li:nth-child(4) {
+  padding-right: 0;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+nav i {
+  border: 1px solid black;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+nav ul {
+  padding: 0;
+}
+
+nav ul li a:hover {
+  color: #50b9e1;
+}
+
+/* site-header */
+
+.site-header {
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url(./Requirements-and-Resources/Images/kids_main.jpg) no-repeat center;
+  background-size: cover;
+}
+
+.site-header h1 {
+  font-size: 66px;
+  color: white;
+  width: 38%;
+  padding: 230px 0 70px 100px;
+  margin: 0;
+}
+
+.site-header button {
+  font-size: 26px;
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+  padding: 10px 15px;
+  margin: 0 0 150px 100px;
+  cursor: pointer;
+}
+
+.site-header button:hover {
+  background-color: #50b9e1;
+  border: 2px solid #50b9e1;
+}
+
+/* welcome */
+
+.welcome {
+  width: 60%;
+  text-align: center;
+  color: #5a7c8a;
+  margin: 0 auto;
+  padding: 15px 0 35px 0;
+}
+
+h2 {
+  font-family: 'PT Serif', serif;
+  font-size: 36px;
+  font-style: italic;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.welcome span {
+  color: #50b9e1;
+}
+
+/* offerts */
+
+.offerts {
+  background-color: #50b9e1;
+  font-family: 'PT Serif', serif;
+  color: white;
+  text-align: center;
+  padding: 20px 30px;
+}
+
+.offerts img {
+  width: 70px;
+}
+
+.offerts ul {
+  margin: 0;
+  padding: 0;
+}
+
+.offerts ul li {
+  display: inline-block;
+  width: 335px;
+  padding: 25px 35px;
+}
+
+.offerts a {
+  color: white;
+}
+
+/* camps */
+
+.camps {
+  color: #5a7c8a;
+  padding: 20px 0;
+}
+
+body>main>section.camps>p {
+  text-align: center;
+  margin: 0 auto;
+  width: 50%;
+  padding: 10px 0 25px 0;
+}
+
+.camps ul {
+  padding: 0;
+}
+
+.camps li {
+  display: inline-block;
+  width: 400px;
+}
+
+body>main>section.camps>ul>li:nth-child(2) {
+  padding: 0 45px;
+}
+
+.camps img {
+  width: 400px;
+  height: 250px;
+}
+
+.info div {
+  display: inline-block;
+}
+
+.info div p,
+.info div h3 {
+  margin: 0;
+  padding: 0;
+}
+
+.info div:nth-child(1) {
+  width: 336px;
+}
+
+.info div:nth-child(2) {
+  color: white;
+  background-color: #43bae3;
+  padding: 10px;
+  font-size: 24px;
+}
+
+.info {
+  border-bottom: 2px solid #5a7c8a;
+  padding-bottom: 10px;
+}
+
+.more-info button {
+  font-size: 18px;
+  background: transparent;
+  color: #43bae3;
+  border: 2px solid #43bae3;
+  padding: 7px 15px;
+  cursor: pointer;
+}
+
+.more-info button:hover {
+  color: white;
+  background-color: #43bae3;
+}
+
+/* footer */
+
+footer {
+  background-color: #43bae3;
+}
+
+footer p {
+  display: inline-block;
+  color: #5a7c8a;
+  width: 70%;
+  padding-left: 150px;
+}
+
+footer ul {
+  display: inline-block;
+}
+
+footer ul li {
+  display: inline-block;
+  color: #5a7c8a;
+}
+
+footer ul li a i {
+  color: #5a7c8a;
+  border: 1px solid #5a7c8a;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+footer ul li a i:hover {
+  color: black
+}
