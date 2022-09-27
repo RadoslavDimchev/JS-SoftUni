@@ -13,7 +13,6 @@ class List {
   remove(index) {
     if (index >= 0 && index < this.collection.length) {
       this.collection.splice(index, 1);
-      this.collection.sort((a, b) => a - b);
       this.size--;
     }
   }

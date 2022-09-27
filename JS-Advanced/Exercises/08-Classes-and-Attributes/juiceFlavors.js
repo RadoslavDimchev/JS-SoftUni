@@ -17,7 +17,7 @@ function juiceFlavors(input) {
     }
   });
 
-  [...producedBottles].forEach(t => console.log(`${t[0]} => ${t[1]}`));
+  producedBottles.forEach((q, n) => console.log(`${n} => ${q}`));
 }
 
 juiceFlavors(['Orange => 2000',

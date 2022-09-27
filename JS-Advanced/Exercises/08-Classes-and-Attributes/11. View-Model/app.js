@@ -1,8 +1,9 @@
 class Textbox {
   constructor(selector, regex) {
-    this._value = '';
     this._elements = document.querySelectorAll(selector);
     this._invalidSymbols = regex;
+    [...this.elements]
+      .forEach(el => el.addEventListener('change', () => this.value = el.value));
   }
 
   get value() {
@@ -26,8 +27,8 @@ class Textbox {
   }
 }
 
-
 let textbox = new Textbox('.textbox', /[^a-zA-Z0-9]/);
-let inputs = document.getElementsByClassName('.textbox');
+let inputs = document.getElementsByClassName('textbox');
 
-inputs.addEventListener('click', function () { console.log(textbox.value); });
+Array.from(inputs)
+  .forEach(el => el.addEventListener('click', function () { console.log(textbox.value); }));

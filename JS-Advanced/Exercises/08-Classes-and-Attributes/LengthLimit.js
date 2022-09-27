@@ -17,10 +17,8 @@ class Stringer {
   }
 
   toString() {
-    if (this.innerLength === 0) {
-      return '...';
-    } else if (this.innerString.length > this.innerLength) {
-      return this.innerString.slice(0, this.innerLength) + '.'.repeat(this.innerString.length - this.innerLength);
+    if (this.innerString.length > this.innerLength) {
+      return this.innerString.slice(0, this.innerLength) + '...';
     }
 
     return this.innerString;

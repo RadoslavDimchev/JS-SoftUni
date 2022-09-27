@@ -16,10 +16,10 @@ function autoEngineeringCompany(input) {
     cars.get(brand).set(model, cars.get(brand).get(model) + produced);
   });
 
-  [...cars]
-    .forEach(([brand, models]) => {
-      console.log(`${brand}\n` +
-        [...models].map(([car, total]) => `###${car} -> ${total}`).join('\n'));
+  cars
+    .forEach((models, brand) => {
+      console.log(brand);
+      models.forEach((total, car) => console.log(`###${car} -> ${total}`));
     });
 }
 
