@@ -11,22 +11,22 @@ function balloons() {
       super(color, hasWeight);
       this.ribbonColor = ribbonColor;
       this.ribbonLength = ribbonLength;
-      Object.defineProperty(this, 'ribbon', {
-        get() {
-          return { color: this.ribbonColor, length: this.ribbonLength };
-        }
-      });
+      this._ribbon = { color: ribbonColor, length: ribbonLength };
+    }
+
+    get ribbon() {
+      return this._ribbon;
     }
   }
 
   class BirthdayBalloon extends PartyBalloon {
     constructor(color, hasWeight, ribbonColor, ribbonLength, text) {
       super(color, hasWeight, ribbonColor, ribbonLength);
-      Object.defineProperty(this, 'text', {
-        get() {
-          return text;
-        }
-      });
+      this._text = text;
+    }
+
+    get text() {
+      return this._text;
     }
   }
 

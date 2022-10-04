@@ -1,48 +1,41 @@
 (function stringExtension() {
   String.prototype.ensureStart = function (str) {
     if (this.startsWith(str)) {
-      return this + '';
+      return this.toString();
     }
-    return str + this;
+    return str + this.toString();
   };
 
   String.prototype.ensureEnd = function (str) {
     if (this.endsWith(str)) {
-      return this + '';
+      return this.toString();
     }
-    return this + str;
+    return this.toString() + str;
   };
 
   String.prototype.isEmpty = function () {
-    return this.length === 0 ? true : false;
+    return this.length === 0;
   };
 
   String.prototype.truncate = function (n) {
-    if (this.length < n) {
-      return this + '';
+    if (this.length <= n) {
+      return this.toString();
     }
 
     if (n < 4) {
       return '.'.repeat(n);
     }
 
-    const parts = this.split(' ');
-    if (parts.length === 1) {
-      return parts.join('').split('.').join('').slice(0, n - 3) + '...';
-    } else {
-      let string = this + '';
-      while (string.length > n) {
-        parts.pop();
-        string = parts.join(' ') + '...';
-      };
-      return string;
-    }
+    const lastIndex = this.substring(0, n - 2).lastIndexOf(' ');
+
+    return lastIndex
+      ? this.substring(0, lastIndex) + '...'
+      : this.substring(0, n - 3) + '...';
   };
 
   String.format = function (string, ...params) {
-    const pattern = /{\d+}/;
     while (params.length) {
-      string = string.replace(pattern, params.shift());
+      string = string.replace(/{\d+}/, params.shift());
     }
     return string;
   };
