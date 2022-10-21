@@ -1,0 +1,15 @@
+{
+  "name": "exam-13-march-2022",
+  "version": "1.0.0",
+  "description": "",
+  "main": "02-CarDealership.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.3.6"
+  }
+}
