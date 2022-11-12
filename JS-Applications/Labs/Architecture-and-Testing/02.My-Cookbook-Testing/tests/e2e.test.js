@@ -21,11 +21,11 @@ const recipe = {
 };
 
 describe('E2E tests', async function () {
-    this.timeout(8000);
+    this.timeout(6000);
 
     before(async () => {
-        browser = await chromium.launch({ headless: false, slowMo: 500 });
-        // browser = await chromium.launch();
+        // browser = await chromium.launch({ headless: false, slowMo: 500 });
+        browser = await chromium.launch();
     });
 
     after(async () => {
@@ -119,7 +119,7 @@ describe('E2E tests', async function () {
     });
 
     describe('CRUD operations', async () => {
-        async function login() {
+        beforeEach(async () => {
             await page.goto(host);
 
             await page.waitForSelector('nav');
@@ -133,7 +133,8 @@ describe('E2E tests', async function () {
                 page.waitForResponse('**/login'),
                 page.click('[type="submit"]')
             ]);
-        }
+        });
+
         async function createRecipe() {
             await page.waitForSelector('nav');
             await page.click('text=Create Recipe');
@@ -148,11 +149,10 @@ describe('E2E tests', async function () {
                 page.waitForResponse('**/data/recipes'),
                 page.click('[type="submit"]')
             ]);
-            return JSON.parse(response.request().postData());;
+            return JSON.parse(response.request().postData());
         }
 
         it('"create" makes correct API call for logged in user', async () => {
-            await login();
             const data = await createRecipe();
 
             expect(data.name).to.equal(recipe.name);
@@ -162,7 +162,6 @@ describe('E2E tests', async function () {
         });
 
         it('The author can see the "Edit" and "Delete" button', async () => {
-            await login();
             await createRecipe();
 
             await page.waitForSelector('#details');
@@ -172,7 +171,6 @@ describe('E2E tests', async function () {
         });
 
         it('"edit" loads the correct article data for logged in user', async () => {
-            await login();
             await createRecipe();
 
             await page.waitForSelector('.controls');
@@ -188,6 +186,22 @@ describe('E2E tests', async function () {
             expect(img).to.equal(recipe.img);
             expect(ingredients).to.equal(recipe.ingredients.join('\n'));
             expect(steps).to.equal(recipe.steps.join('\n'));
+        });
+
+        it('edit makes correct API call for logged in user', async () => {
+            await createRecipe();
+
+            await page.waitForSelector('.controls');
+            await page.click('.controls button:nth-child(1)');
+            await page.waitForSelector('form');
+
+            await page.fill('[name="name"]', 'musaka 2');
+
+            await page.click('[type="submit"]');
+
+            await page.waitForSelector('#details');
+            const constent = await page.textContent('h2');
+            expect(constent).to.equal('musaka 2');
         });
     });
 });
