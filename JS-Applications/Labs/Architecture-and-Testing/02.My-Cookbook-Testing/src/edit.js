@@ -1,75 +1,35 @@
 import { showDetails } from './details.js';
+import { put } from './api.js';
+import { createSubmitHandler, getRecipeById, setActiveNav } from './util.js';
 
 
-async function getRecipeById(id) {
-    const response = await fetch('http://localhost:3030/data/recipes/' + id);
-    const recipe = await response.json();
+const section = document.getElementById('edit');
+const main = document.querySelector('main');
 
-    return recipe;
-}
+export async function showEdit(id) {
+    main.innerHTML = '';
+    main.appendChild(section);
+    setActiveNav();
 
-let main;
-let section;
-let setActiveNav;
-let recipeId;
+    fillInputs(await getRecipeById(id));
 
-export function setupEdit(targetMain, targetSection, onActiveNav) {
-    main = targetMain;
-    section = targetSection;
-    setActiveNav = onActiveNav;
-    const form = targetSection.querySelector('form');
-
-    form.addEventListener('submit', (ev => {
-        ev.preventDefault();
-        const formData = new FormData(ev.target);
-        onSubmit([...formData.entries()].reduce((p, [k, v]) => Object.assign(p, { [k]: v }), {}));
-    }));
+    const form = section.querySelector('form');
+    createSubmitHandler(form, onSubmit);
 
     async function onSubmit(data) {
-        const body = JSON.stringify({
+        const body = {
             name: data.name,
             img: data.img,
             ingredients: data.ingredients.split('\n').map(l => l.trim()).filter(l => l != ''),
             steps: data.steps.split('\n').map(l => l.trim()).filter(l => l != '')
-        });
+        };
 
-        const token = sessionStorage.getItem('authToken');
-        if (token == null) {
-            return alert('You\'re not logged in!');
-        }
-
-        try {
-            const response = await fetch('http://localhost:3030/data/recipes/' + recipeId, {
-                method: 'put',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Authorization': token
-                },
-                body
-            });
-
-            if (response.status == 200) {
-                showDetails(recipeId);
-            } else {
-                const error = await response.json();
-                throw new Error(error.message);
-            }
-        } catch (err) {
-            alert(err.message);
-            console.error(err.message);
-        }
+        await put('/data/recipes/' + id, body);
+        showDetails(id);
     }
 }
 
-
-export async function showEdit(id) {
-    setActiveNav();
-    main.innerHTML = '';
-    main.appendChild(section);
-
-    recipeId = id;
-    const recipe = await getRecipeById(recipeId);
-
+function fillInputs(recipe) {
     section.querySelector('[name="name"]').value = recipe.name;
     section.querySelector('[name="img"]').value = recipe.img;
     section.querySelector('[name="ingredients"]').value = recipe.ingredients.join('\n');

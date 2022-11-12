@@ -1,11 +1,21 @@
 import { e } from './dom.js';
 import { showDetails } from './details.js';
+import { get } from './api.js';
+import { setActiveNav } from './util.js';
 
-async function getRecipes() {
-    const response = await fetch('http://localhost:3030/data/recipes?select=' + encodeURIComponent('_id,name,img'));
-    const recipes = await response.json();
+const section = document.getElementById('catalog');
 
-    return recipes;
+export async function showCatalog(ctx) {
+    ctx.render(section);
+    setActiveNav('catalogLink');
+
+    const recipes = await get('/data/recipes?select=' + encodeURIComponent('_id,name,img'));
+    const cards = recipes.map(createRecipePreview);
+
+    const fragment = document.createDocumentFragment();
+    cards.forEach(c => fragment.appendChild(c));
+    section.innerHTML = '';
+    section.appendChild(fragment);
 }
 
 function createRecipePreview(recipe) {
@@ -15,29 +25,4 @@ function createRecipePreview(recipe) {
     );
 
     return result;
-}
-
-let main;
-let section;
-let setActiveNav;
-
-export function setupCatalog(targetMain, targetSection, onActiveNav) {
-    main = targetMain;
-    section = targetSection;
-    setActiveNav = onActiveNav;
-}
-
-export async function showCatalog() {
-    setActiveNav('catalogLink');
-    section.innerHTML = 'Loading&hellip;';
-    main.innerHTML = '';
-    main.appendChild(section);
-
-    const recipes = await getRecipes();
-    const cards = recipes.map(createRecipePreview);
-
-    const fragment = document.createDocumentFragment();
-    cards.forEach(c => fragment.appendChild(c));
-    section.innerHTML = '';
-    section.appendChild(fragment);
 }

@@ -1,57 +1,30 @@
-import { showCatalog } from './catalog.js';
+import { post } from './api.js';
+import { createSubmitHandler, setActiveNav } from './util.js';
 
 
-let main;
-let section;
-let setActiveNav;
+const section = document.getElementById('login');
+let ctx = null;
 
-export function setupLogin(targetMain, targetSection, onActiveNav) {
-    main = targetMain;
-    section = targetSection;
-    setActiveNav = onActiveNav;
+export function showLogin(inCtx) {
+    ctx = inCtx;
+    ctx.render(section);
+    setActiveNav('loginLink');
 
-    const form = targetSection.querySelector('form');
-
-    form.addEventListener('submit', (ev => {
-        ev.preventDefault();
-        const formData = new FormData(ev.target);
-        onSubmit([...formData.entries()].reduce((p, [k, v]) => Object.assign(p, { [k]: v }), {}));
-    }));
-
-    async function onSubmit(data) {
-        const body = JSON.stringify({
-            email: data.email,
-            password: data.password,
-        });
-
-        try {
-            const response = await fetch('http://localhost:3030/users/login', {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body
-            });
-            const data = await response.json();
-            if (response.status == 200) {
-                sessionStorage.setItem('authToken', data.accessToken);
-                sessionStorage.setItem('userId', data._id);
-                document.getElementById('user').style.display = 'inline-block';
-                document.getElementById('guest').style.display = 'none';
-                
-                showCatalog();
-            } else {
-                alert(data.message);
-                throw new Error(data.message);
-            }
-        } catch (err) {
-            console.error(err.message);
-        }
-    }
+    const form = section.querySelector('form');
+    createSubmitHandler(form, onSubmit);
 }
 
-export function showLogin() {
-    setActiveNav('loginLink');
-    main.innerHTML = '';
-    main.appendChild(section);
+async function onSubmit(data) {
+    const body = {
+        email: data.email,
+        password: data.password,
+    };
+
+    const resData = await post('/users/login', body);
+
+    sessionStorage.setItem('authToken', resData.accessToken);
+    sessionStorage.setItem('userId', resData._id);
+
+    ctx.setUserNav();
+    ctx.goTo('catalogLink');
 }

@@ -1,26 +1,19 @@
-import { setupCatalog, showCatalog } from './catalog.js';
-import { setupCreate, showCreate } from './create.js';
-import { setupLogin, showLogin } from './login.js';
-import { setupRegister, showRegister } from './register.js';
-import { setupDetails } from './details.js';
-import { setupEdit } from './edit.js';
+import { showCatalog } from './catalog.js';
+import { showCreate } from './create.js';
+import { showLogin } from './login.js';
+import { showRegister } from './register.js';
+import { get } from './api.js';
 
+import { render } from './dom.js';
+import { setUserNav } from './util.js';
+
+
+const nav = document.querySelector('nav');
 
 window.addEventListener('load', async () => {
-    setUserNav();
-
-    const main = document.querySelector('main');
-    const nav = document.querySelector('nav');
-
-    setupCatalog(main, document.getElementById('catalog'), setActiveNav);
-    setupCreate(main, document.getElementById('create'), setActiveNav);
-    setupLogin(main, document.getElementById('login'), setActiveNav);
-    setupRegister(main, document.getElementById('register'), setActiveNav);
-    setupDetails(main, document.getElementById('details'), setActiveNav);
-    setupEdit(main, document.getElementById('edit'), setActiveNav);
+    nav.addEventListener('click', setupNavigation);
     document.getElementById('views').remove();
 
-    
     const links = {
         'catalogLink': showCatalog,
         'createLink': showCreate,
@@ -28,52 +21,41 @@ window.addEventListener('load', async () => {
         'registerLink': showRegister,
         'logoutBtn': logout,
     };
-    setupNavigation();
-    
+
     // Start application in catalog view
-    showCatalog();
+    setUserNav();
+    goTo('catalogLink');
 
 
-    function setupNavigation() {
-        nav.addEventListener('click', (ev) => {
-            if (ev.target.tagName == 'A') {
-                const handler = links[ev.target.id];
-                if (handler) {
-                    ev.preventDefault();
-                    handler();
-                }
+    function setupNavigation(ev) {
+        if (ev.target.tagName == 'A') {
+            const viewName = ev.target.id;
+            if (goTo(viewName)) {
+                ev.preventDefault();
             }
-        });
+        }
     }
 
-    function setActiveNav(targetId) {
-        [...nav.querySelectorAll('a')].forEach(a => a.id == targetId ? a.classList.add('active') : a.classList.remove('active'));
-    }
+    function goTo(viewName) {
+        const view = links[viewName];
 
+        if (typeof view === 'function') {
+            view({
+                render,
+                goTo,
+                setUserNav
+            });
 
-    function setUserNav() {
-        if (sessionStorage.getItem('authToken') != null) {
-            document.getElementById('user').style.display = 'inline-block';
-            document.getElementById('guest').style.display = 'none';
+            return true;
         } else {
-            document.getElementById('user').style.display = 'none';
-            document.getElementById('guest').style.display = 'inline-block';
+            return false;
         }
     }
 
     async function logout() {
-        const response = await fetch('http://localhost:3030/users/logout', {
-            method: 'get',
-            headers: {
-                'X-Authorization': sessionStorage.getItem('authToken')
-            },
-        });
-        if (response.ok) {
-            sessionStorage.removeItem('authToken');
-            setUserNav();
-            showCatalog();
-        } else {
-            console.error(await response.json());
-        }
+        get('/users/logout');
+        sessionStorage.removeItem('authToken');
+        setUserNav();
+        goTo('catalogLink');
     }
 });

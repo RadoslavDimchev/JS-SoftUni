@@ -1,35 +1,25 @@
+import { deleteReq } from './api.js';
 import { e } from './dom.js';
 import { showEdit } from './edit.js';
+import { getRecipeById, setActiveNav } from './util.js';
 
+const main = document.querySelector('main');
+const section = document.getElementById('details');
 
-async function getRecipeById(id) {
-    const response = await fetch('http://localhost:3030/data/recipes/' + id);
-    const recipe = await response.json();
+export async function showDetails(id) {
+    main.innerHTML = 'Loading&hellip;';
+    setActiveNav();
 
-    return recipe;
+    const recipe = await getRecipeById(id);
+    section.innerHTML = '';
+    main.replaceChildren(section);
+    section.appendChild(createRecipeCard(recipe));
 }
 
 async function deleteRecipeById(id) {
-    const token = sessionStorage.getItem('authToken');
-
-    try {
-        const response = await fetch('http://localhost:3030/data/recipes/' + id, {
-            method: 'delete',
-            headers: {
-                'X-Authorization': token
-            }
-        });
-
-        if (response.status != 200) {
-            const error = await response.json();
-            throw new Error(error.message);
-        }
-
-        section.innerHTML = '';
-        section.appendChild(e('article', {}, e('h2', {}, 'Recipe deleted')));
-    } catch (err) {
-        alert(err.message);
-    }
+    await deleteReq('/data/recipes/' + id);
+    section.innerHTML = '';
+    section.appendChild(e('article', {}, e('h2', {}, 'Recipe deleted')));
 }
 
 function createRecipeCard(recipe) {
@@ -64,25 +54,4 @@ function createRecipeCard(recipe) {
             deleteRecipeById(recipe._id);
         }
     }
-}
-
-let main;
-let section;
-let setActiveNav;
-
-export function setupDetails(targetMain, targetSection, onActiveNav) {
-    main = targetMain;
-    section = targetSection;
-    setActiveNav = onActiveNav;
-}
-
-export async function showDetails(id) {
-    setActiveNav();
-    section.innerHTML = 'Loading&hellip;';
-    main.innerHTML = '';
-    main.appendChild(section);
-
-    const recipe = await getRecipeById(id);
-    section.innerHTML = '';
-    section.appendChild(createRecipeCard(recipe));
 }

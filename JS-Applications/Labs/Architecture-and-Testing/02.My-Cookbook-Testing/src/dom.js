@@ -22,3 +22,7 @@ export function e(type, attributes, ...content) {
 
     return result;
 }
+
+export function render(section) {
+    document.querySelector('main').replaceChildren(section);
+}
