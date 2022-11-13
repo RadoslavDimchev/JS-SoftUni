@@ -54,9 +54,9 @@ describe('E2E tests', async function () {
         it('display content of the API', async () => {
             await page.goto(host);
 
-            await page.waitForSelector('.preview');
+            await page.waitForSelector('.recent-recipes');
 
-            let visible = await page.isVisible('.preview');
+            let visible = await page.isVisible('.recent-preview');
 
             expect(visible).to.be.true;
         });
@@ -64,9 +64,9 @@ describe('E2E tests', async function () {
         it('displays the recipe details', async () => {
             await page.goto(host);
 
-            await page.waitForSelector('.preview');
+            await page.waitForSelector('.recent-recipes');
 
-            await page.click('.preview');
+            await page.click('.recent-recipes');
             await page.waitForSelector('#details');
 
             let visible = await page.isVisible('#details');

@@ -116,3 +116,7 @@ a {
 a:visited {
     color: #40522a;
 }
+
+article.recent:nth-child(2) {
+    margin: 0 50px;
+}
