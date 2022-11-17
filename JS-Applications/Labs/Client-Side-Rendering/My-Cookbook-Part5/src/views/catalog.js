@@ -1,29 +1,29 @@
-import { html } from '../dom.js';
+import { e, html } from '../dom.js';
 import { getRecipes, getRecipeCount } from '../api/data.js';
 
 
-const catalogTemplate = (recipes, goTo, page, pages) => html`        
+const catalogTemplate = (recipes, goTo, page, pages) => html`
 <section id="catalog">
-    <header class="section-title">${pagerTemplate(goTo, page, pages)}</header>
-    ${recipes.map(r => recipeTemplate(r, goTo))}
-    <footer class="section-title">${pagerTemplate(goTo, page, pages)}</footer>
+    <header class="section-title">${pager(goTo, page, pages)}</header>
+    ${recipes.map(r => recipePreview(r, goTo))}
+    <footer class="section-title">${pager(goTo, page, pages)}</footer>
 </section>`;
 
-const recipeTemplate = (recipe, goTo) => html`
-<article @click=${() => goTo('details', recipe._id)} class="preview">
+const recipePreview = (recipe, goTo) => html`
+<article class="preview" @click=${()=> goTo('details', recipe._id)}>
     <div class="title">
         <h2>${recipe.name}</h2>
     </div>
     <div class="small"><img src=${recipe.img}></div>
 </article>`;
 
-const pagerTemplate = (goTo, page, pages) => html`
+const pager = (goTo, page, pages) => html`
 Page ${page} of ${pages}
-${page > 1 ? html`<a class="pager" href="/catalog" @click=${ev => changePage(ev, goTo, page - 1)}>&lt; Prev</a>` : ''}
-${page < pages ? html`<a class="pager" href="/catalog" @click=${ev => changePage(ev, goTo, page + 1)}>Next &gt;</a>` : ''}`;
+${page > 1 ? html`<a class="pager" href="/catalog" @click=${e => changePage(e, goTo, page - 1)}>&lt; Prev</a>` : ''}
+${page < pages ? html`<a class="pager" href="/catalog" @click=${e => changePage(e, goTo, page + 1)}>Next &gt;</a>` : ''}`;
 
-function changePage(ev, goTo, newPage) {
-    ev.preventDefault();
+function changePage(e, goTo, newPage) {
+    e.preventDefault();
     goTo('catalog', newPage);
 }
 

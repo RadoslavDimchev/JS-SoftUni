@@ -70,7 +70,7 @@ export function createNav(main, navbar) {
 
     function onSubmit(ev) {
         const handler = forms[ev.target.id];
-        if(typeof handler === 'function') {
+        if (typeof handler == 'function') {
             ev.preventDefault();
             const formData = new FormData(ev.target);
             const body = [...formData.entries()].reduce((p, [k, v]) => Object.assign(p, { [k]: v }), {});

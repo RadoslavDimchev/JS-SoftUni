@@ -1,8 +1,8 @@
-import { createRecipe } from '../api/data.js';
 import { html } from '../dom.js';
+import { createRecipe } from '../api/data.js';
 
 
-const createTemplate = () => html`        
+const createTemplate = () => html`
 <section id="create">
     <article>
         <h2>New Recipe</h2>

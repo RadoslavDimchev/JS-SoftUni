@@ -1,8 +1,8 @@
-import { register } from '../api/data.js';
 import { html } from '../dom.js';
+import { regster } from '../api/data.js';
 
 
-const registerTemplate = () => html`        
+const registerTemplate = () => html`
 <section id="register">
     <article>
         <h2>Register</h2>
@@ -15,6 +15,7 @@ const registerTemplate = () => html`
     </article>
 </section>`;
 
+
 export function setupRegister(nav) {
     nav.registerForm('registerForm', onSubmit);
     return showRegister;
@@ -24,12 +25,12 @@ export function setupRegister(nav) {
     }
 
     async function onSubmit(data) {
-        if (data.password !== data.rePass) {
+        if (data.password != data.rePass) {
             return alert('Passwords don\'t match');
         }
 
         try {
-            await register(data.email, data.password);
+            await regster(data.email, data.password);
             nav.setUserNav();
             nav.goTo('catalog');
         } catch (err) {

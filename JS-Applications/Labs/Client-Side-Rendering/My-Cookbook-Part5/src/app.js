@@ -7,7 +7,7 @@ import { setupCreate } from './views/create.js';
 import { setupLogin } from './views/login.js';
 import { setupRegister } from './views/register.js';
 import { setupDetails } from './views/details.js';
-import { setupDeleted, setupEdit } from './views/edit.js';
+import { setupEdit, setupDeleted } from './views/edit.js';
 
 
 window.addEventListener('load', async () => {
