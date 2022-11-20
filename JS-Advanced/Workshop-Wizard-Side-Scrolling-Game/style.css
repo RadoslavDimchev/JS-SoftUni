@@ -1,0 +1,86 @@
+body {
+  font-size: 32px;
+  font-family: consolas;
+}
+
+.game-area {
+  position: relative;
+  background: rgb(0,150,224);
+  background: linear-gradient(180deg, rgba(0,150,224,1) 0%, rgba(128,214,255,1) 100%); 
+  width: 100%;
+  height: 93vh;
+  margin: 0;
+}
+
+.game-start {
+  position: absolute;
+  z-index: 1;
+  width: 30%;
+  background-color:  rgb(235, 253, 153);
+  top: 100px;
+  left: 35%;
+  text-align: center;
+  padding: 30px;
+  border-radius: 30px;
+}
+
+.game-score {
+  background-color: black;
+  color: white;
+  text-align: center;
+}
+
+.hide {
+  display: none;
+}
+
+.wizard {
+  z-index: 100;
+  position: absolute;
+  width: 82px;
+  height: 100px;
+  background-image: url(images/wizard.png);
+  background-size: cover;
+}
+
+.wizard-fire {
+  background-image: url(./images/wizard-fire.png);
+  background-size: cover;
+}
+
+.fire-ball {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-image: url(./images/fire-ball.png);
+  background-size: cover;
+}
+
+.cloud {
+  z-index: 0;
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background-image: url(images/cloud.png);
+  background-size: cover;
+}
+
+.bug {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background-image: url(./images/bug.png);
+  background-size: cover;
+}
+
+.game-over {
+  position: absolute;
+  width: 50%;
+  background-color: red;
+  top: 100px;
+  left: 25%;
+  z-index: 1;
+  text-align: center;
+  padding: 30px;
+  border-radius: 30px;
+}
