@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Orphanage help</title>
+    <link rel="stylesheet" href="/styles/style.css">
+    <script src="/src/app.js" type="module"></script>
+</head>
+
+<body>
+    <div id="box">
+        <header>
+            <!-- Navigation -->
+            <h1><a href="/catalog">Orphelp</a></h1>
+
+            <nav>
+                <a href="/catalog">Dashboard</a>
+
+                <!-- Logged-in users -->
+                <div id="user">
+                    <a href="/my-posts">My Posts</a>
+                    <a href="/create">Create Post</a>
+                    <a id="logoutBtn" href="javascript:void(0)">Logout</a>
+                </div>
+
+                <!-- Guest users -->
+                <div id="guest">
+                    <a href="/login">Login</a>
+                    <a href="/register">Register</a>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main id="main-content"></main>
+    </div>
+</body>
+
+</html>
