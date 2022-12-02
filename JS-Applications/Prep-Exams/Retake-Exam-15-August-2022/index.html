@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=\, initial-scale=1.0" />
+  <link rel="stylesheet" href="/styles/styles.css" />
+  <script src="/src/app.js" type="module"></script>
+  <title>Sole Mates</title>
+</head>
+
+<body>
+  <div id="wrapper">
+    <header>
+      <!-- Navigation -->
+      <a id="logo" href="/"><img id="logo-img" src="./images/logo.png" alt="" /></a>
+
+      <nav>
+        <div>
+          <a href="/catalog">Dashboard</a>
+          <a href="/search">Search</a>
+        </div>
+
+        <!-- Logged-in users -->
+        <div class="user">
+          <a href="/create">Add Pair</a>
+          <a id="logoutBtn" href="javascript:void(0)">Logout</a>
+        </div>
+
+        <!-- Guest users -->
+        <div class="guest">
+          <a href="/login">Login</a>
+          <a href="register">Register</a>
+        </div>
+      </nav>
+    </header>
+
+    <main></main>
+  </div>
+  <footer>
+    <p>@SoleMates</p>
+  </footer>
+</body>
+
+</html>
