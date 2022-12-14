@@ -20,6 +20,7 @@ const tmp = (ctx) => html`
 
 .carousel-slide>img {
     width: 100%;
+    max-height: 500px
 }
 
 /* Next & previous buttons */
@@ -56,19 +57,21 @@ const tmp = (ctx) => html`
 
 /* Caption text */
 
-.text {
-    color: #f2f2f2;
-    font-size: 15px;
-    padding: 8px 12px;
-    position: absolute;
-    bottom: 8px;
-    width: 100%;
-    text-align: center;
+.caption-text {
+            color: #f2f2f2;
+            font-size: 15px;
+            padding: 8px 12px;
+            position: absolute;
+            bottom: 8px;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.5em;
 }
 
 /* Number text (1/3 etc) */
 
-.numbertext {
+.number-text {
     color: #f2f2f2;
     font-size: 12px;
     padding: 8px 12px;
@@ -129,7 +132,7 @@ const tmp = (ctx) => html`
   return html`
         <article style=${styleMap(styles)} class="carousel-slide fade">
           <p class="number-text">${index + 1} / ${ctx.articleData.length}</p>
-          <img src=${img} alt="">
+          <img src=${img} alt="image">
           <p class="caption-text">${caption}</p>
         </article>`;
 })}
@@ -185,7 +188,6 @@ class Carousel extends HTMLElement {
   }
 
   handlePrev() {
-    console.log('e');
     const { articleData, currentIndex } = this.state;
 
     if (currentIndex - 1 < 0) {
