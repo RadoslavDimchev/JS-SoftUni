@@ -1,4 +1,4 @@
-# Sleepover  <img src="./assets/logo.jpg" width="50" heigth="50"/>
+# Sleepover
 
 Find accommodation in many locations across the world or offer a room!
 
