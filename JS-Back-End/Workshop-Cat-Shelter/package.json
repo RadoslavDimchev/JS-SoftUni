@@ -10,6 +10,7 @@
   "author": "RD",
   "license": "ISC",
   "dependencies": {
+    "formidable": "^2.1.1",
     "qs": "^6.11.0"
   }
 }
