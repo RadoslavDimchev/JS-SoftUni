@@ -25,16 +25,16 @@
         <form action="/cats-edit/{{id}}" method="POST" class="cat-form" enctype="multipart/form-data">
             <h2>Edit Cat</h2>
             <label for="name">Name</label>
-            <input type="text" id="name" value="{{name}}">
+            <input name="name" type="text" id="name" value="{{name}}">
             <label for="description">Description</label>
-            <textarea id="description">{{description}}</textarea>
+            <textarea name="description" id="description">{{description}}</textarea>
             <label for="image">Image</label>
             <input name="upload" type="file" id="image">
             <label for="group">Breed</label>
-            <select id="group">
+            <select name="breed" id="group">
                 {{catBreeds}}
             </select>
-            <button>Edit Cat</button>
+            <button type="submit" formmethod="post">Edit Cat</button>
         </form>
     </main>
 </body>

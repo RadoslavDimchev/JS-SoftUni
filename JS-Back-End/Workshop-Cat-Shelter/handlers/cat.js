@@ -95,7 +95,7 @@ module.exports = (req, res) => {
         if (err) {
           throw err;
         }
-
+        console.log(fields);
         const allCats = JSON.parse(data);
         allCats.push({ id: (cats.length + 1).toString(), ...fields, image: files.upload.originalFilename });
         const json = JSON.stringify(allCats);
@@ -173,7 +173,6 @@ module.exports = (req, res) => {
       }
 
       let catId = req.url.split('/')[2];
-      let currentCat = cats.find(c => c.id === catId);
 
       let oldPath = files.upload.filepath;
       let newPath = path.normalize(path.join(globalPath, '/content/images/' + files.upload.originalFilename));
@@ -192,7 +191,6 @@ module.exports = (req, res) => {
         }
 
         const allCats = JSON.parse(data);
-        console.log(fields);
         allCats.splice(catId - 1, 1, { id: catId, ...fields, image: files.upload.originalFilename });
         const json = JSON.stringify(allCats);
 
@@ -203,6 +201,7 @@ module.exports = (req, res) => {
           console.log('Cat successfully edited!');
         });
       });
+
       res.writeHead(301, { 'location': '/' });
       res.end();
     });
