@@ -3,7 +3,7 @@ function hasUser() {
     if (req.user) {
       next();
     } else {
-      res.refirect('/auth/login');
+      res.redirect('/auth/login');
     }
   };
 }
@@ -11,14 +11,26 @@ function hasUser() {
 function isGuest() {
   return (req, res, next) => {
     if (req.user) {
-      res.refirect('/');
+      res.redirect('/');
     } else {
       next();
     }
   };
 }
 
+function isOwner() {
+  return (req, res, next) => {
+    if(req.user && res.locals.course.owner.toString() === req.user._id.toString()) {
+      res.locals.isOwner = true;
+      next();
+    } else {
+      res.redirect('/auth/login');
+    }
+  };
+}
+
 module.exports = {
   hasUser,
-  isGuest
+  isGuest,
+  isOwner
 };

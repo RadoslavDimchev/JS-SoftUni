@@ -1,0 +1,15 @@
+<div class="card mb-4">
+  <img class="card-img-top" src="{{imageUrl}}" alt="Card image cap" width="400">
+  <div class="card-body">
+    <h4 class="card-title">{{title}}</h4>
+    {{#unless username}}
+    <small class="float-right">Enrolled: {{userCount}}</small>
+    {{/unless}}
+  </div>
+  {{#if username}}
+  <div class="card-footer">
+    <a class="btn btn-primary" href="/course/{{_id}}">Details</a>
+    <small class="float-right">{{createdAt}}</small>
+  </div>
+  {{/if}}
+</div>

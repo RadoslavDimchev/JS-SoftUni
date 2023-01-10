@@ -11,15 +11,17 @@ const courseSchema = new Schema({
     maxLength: [50, 'Course description must be at most 50 characters long']
   },
   imageUrl: {
-    type: String, validate: {
+    type: String,
+    validate: {
       validator: (value) => URL_PATTERN.test(value),
       message: 'Invalid Image URL'
     }
   },
-  duration: { type: String, required: true },
-  createdAt: { type: String, required: true },
+  duration: { type: String, required: [true, 'Duration is required'] },
+  createdAt: { type: String, required: true, default: () => (new Date()).toISOString().slice(0, 10) },
   users: { type: [Types.ObjectId], ref: 'User', default: [] },
-  owner: { type: Types.ObjectId, ref: 'User' },
+  userCount: { type: Number, default: 0 },
+  owner: { type: Types.ObjectId, ref: 'User' }
 });
 
 courseSchema.index({ title: 1 }, {
