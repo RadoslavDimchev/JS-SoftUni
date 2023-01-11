@@ -1,0 +1,14 @@
+<div>
+  <div class="home-image">
+    <img src="{{imageUrl}}" alt="Card image cap">
+  </div>
+  <div class="info">
+    <h4>{{title}}</h4>
+    {{#if user}}
+    <div class="info-buttons">
+      <a class="btn details" href="/play/{{_id}}">Details</a>
+      <span class="likes">{{likesCount}} likes</span>
+    </div>
+    {{/if}}
+  </div>
+</div>

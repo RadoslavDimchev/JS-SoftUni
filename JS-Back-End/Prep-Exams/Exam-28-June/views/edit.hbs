@@ -1,0 +1,22 @@
+{{#with play}}
+<form class="theater-form" action="/play/{{_id}}/edit" method="post">
+    <h1>Edit Theater</h1>
+    <div>
+        <label for="title">Theater Title:</label>
+        <input type="text" placeholder="Theater name" name="title" value="{{title}}">
+    </div>
+    <div>
+        <label for="description">Theater Description:</label>
+        <textarea placeholder="Description" name="description">{{description}}</textarea>
+    </div>
+    <div>
+        <label for="imageUrl">Image url:</label>
+        <input type="text" placeholder="Image Url" name="imageUrl" value="{{imageUrl}}">
+    </div>
+    <div class="check">
+        <input type="checkbox" id="check-box" name="isPublic" {{#if isPublic}}checked{{/if}}>
+        <label for="check-box">Public</label>
+    </div>
+    <button class="btn" type="submit">Submit</button>
+</form>
+{{/with}}
