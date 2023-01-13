@@ -9,7 +9,7 @@ module.exports = () => (req, res, next) => {
       req.user = userData;
       res.locals.user = userData;
     } catch (error) {
-      res.clearToken('token');
+      res.clearCookie('token');
       res.redirect('/auth/login');
       return;
     }
