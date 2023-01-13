@@ -17,12 +17,12 @@
                 {{#if user}}
                 <div class="social-btn">
                     {{#if post.isOwner}}
-                    <a href="/post/{{_id}}/edit" class="edit-btn">Edit</a>
-                    <a href="/post/{{_id}}/delete" class="del-btn">Delete</a>
+                    <a href="/post/{{post._id}}/edit" class="edit-btn">Edit</a>
+                    <a href="/post/{{post._id}}/delete" class="del-btn">Delete</a>
                     {{else}}
                     {{#unless post.hasVoted}}
-                    <a href="/post/{{_id}}/upvote" class="vote-up">UpVote +1</a>
-                    <a href="/post/{{_id}}/downvote" class="vote-down">DownVote -1</a>
+                    <a href="/post/{{post._id}}/upvote" class="vote-up">UpVote +1</a>
+                    <a href="/post/{{post._id}}/downvote" class="vote-down">DownVote -1</a>
                     {{else}}
                     <p class="thanks-for-vote">Thanks For Voting</p>
                     {{/unless}}
@@ -46,10 +46,8 @@
                 <div class="card_vote">
                     <p class="PV">Total rating of votes: {{post.rating}}</p>
                 </div>
-                {{#if votes}}
-                <!-- <p class="disc">People who voted for the post - alex@gmai.com,
-                     petar@gmail.com, petq@gmail.com</p>-->
-
+                {{#if post.votes}}
+                <p class="disc">People who voted for the post - {{post.votes}}</p>
                 {{else}}
                 <p class="disc">People who voted for the post - No one has voted yet.</p>
                 {{/if}}

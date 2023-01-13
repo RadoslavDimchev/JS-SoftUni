@@ -1,17 +1,19 @@
 const { parseError } = require('../utils/parser');
 const { body, validationResult } = require('express-validator');
-const { createPost, getById } = require('../services/postService');
+const { createPost, getById, deletePost, updatePost, upvote, downvote } = require('../services/postService');
+const preload = require('../middlewares/preload');
+const { hasUser, isOwner } = require('../middlewares/guards');
 
 const postController = require('express').Router();
 
 
-postController.get('/create', (req, res) => {
+postController.get('/create', hasUser(), (req, res) => {
   res.render('create', {
     title: 'Create Page'
   });
 });
 
-postController.post('/create',
+postController.post('/create', hasUser(),
   body('title')
     .isLength({ min: 6 }).withMessage('Title should be at least 6 characters long'),
   body('keyword')
@@ -52,18 +54,58 @@ postController.post('/create',
     }
   });
 
-postController.get('/:id', async (req, res) => {
-  const post = await getById(req.params.id);
+postController.get('/:id', preload(true), (req, res) => {
+  const post = res.locals.post;
 
   if (req.user) {
     post.isOwner = req.user._id.toString() === post.owner.toString();
-    post.hasVoted = post.votes.map(v => v.toString()).includes(req.user._id.toString());
+    post.hasVoted = post.votes.map(v => v._id.toString()).includes(req.user._id.toString());
   }
+
+  post.votes = post.votes.map(v => v.email).join(', ');
 
   res.render('details', {
     title: post.title,
     post
   });
+});
+
+postController.get('/:id/delete', hasUser(), preload(), isOwner(), async (req, res) => {
+  await deletePost(req.params.id);
+  res.redirect('/posts');
+});
+
+postController.get('/:id/edit', hasUser(), preload(true), isOwner(), (req, res) => {
+  res.render('edit', {
+    title: 'Edit Page',
+    post: res.locals.post
+  });
+});
+
+postController.post('/:id/edit', hasUser(), preload(), isOwner(), async (req, res) => {
+  const post = res.locals.post;
+
+  try {
+    await updatePost(post, req.body);
+    res.redirect(`/post/${post._id}`);
+  } catch (error) {
+    res.render('edit', {
+      title: 'Edit Page',
+      post: req.body
+    });
+  }
+});
+
+postController.get('/:id/upvote', hasUser(), preload(), async (req, res) => {
+  const post = res.locals.post;
+  await upvote(post, req.user._id);
+  res.redirect(`/post/${post._id}`);
+});
+
+postController.get('/:id/downvote', hasUser(), preload(), async (req, res) => {
+  const post = res.locals.post;
+  await downvote(post, req.user._id);
+  res.redirect(`/post/${post._id}`);
 });
 
 module.exports = postController;

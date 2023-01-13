@@ -1,17 +1,21 @@
 const authController = require('express').Router();
 const { body, validationResult } = require('express-validator');
+const { isGuest } = require('../middlewares/guards');
 
 const { register, login } = require('../services/userService');
 const { parseError } = require('../utils/parser');
 
 
-authController.get('/register', (req, res) => {
-  res.render('register', {
-    title: 'Register Page'
+authController.get('/register',
+  isGuest(),
+  (req, res) => {
+    res.render('register', {
+      title: 'Register Page'
+    });
   });
-});
 
 authController.post('/register',
+  isGuest(),
   body('firstName')
     .isLength({ min: 3 }).withMessage('First name should be at least 3 characters long')
     .matches(/^[a-zA-Z]+$/).withMessage('First name may contains only English letters'),
@@ -48,13 +52,13 @@ authController.post('/register',
     }
   });
 
-authController.get('/login', (req, res) => {
+authController.get('/login', isGuest(), (req, res) => {
   res.render('login', {
     title: 'Login Page'
   });
 });
 
-authController.post('/login', async (req, res) => {
+authController.post('/login', isGuest(), async (req, res) => {
   try {
     const token = await login(req.body.email, req.body.password);
 

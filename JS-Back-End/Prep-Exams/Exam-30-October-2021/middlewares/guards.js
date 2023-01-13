@@ -20,7 +20,7 @@ function isGuest() {
 
 function isOwner() {
   return (req, res, next) => {
-    if (req.user._id.toString() === req.locals.owner.toString()) {
+    if (req.user._id.toString() === res.locals.post.owner.toString()) {
       next();
     } else {
       res.redirect('/auth/login');
