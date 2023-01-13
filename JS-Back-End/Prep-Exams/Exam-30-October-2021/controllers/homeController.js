@@ -24,10 +24,4 @@ homeController.get('/my-posts', hasUser(), async (req, res) => {
   });
 });
 
-homeController.get('*', (req, res) => {
-  res.render('404', {
-    title: 'Error Page'
-  });
-});
-
 module.exports = homeController;

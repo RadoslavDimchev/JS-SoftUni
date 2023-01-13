@@ -98,13 +98,17 @@ postController.post('/:id/edit', hasUser(), preload(), isOwner(), async (req, re
 
 postController.get('/:id/upvote', hasUser(), preload(), async (req, res) => {
   const post = res.locals.post;
-  await upvote(post, req.user._id);
+  if (post.owner.toString() !== req.user._id.toString() && post.votes.map(v => v.toString()).includes(req.user._id) === false) {
+    await upvote(post, req.user._id);
+  }
   res.redirect(`/post/${post._id}`);
 });
 
 postController.get('/:id/downvote', hasUser(), preload(), async (req, res) => {
   const post = res.locals.post;
-  await downvote(post, req.user._id);
+  if (post.owner.toString() !== req.user._id.toString() && post.votes.map(v => v.toString()).includes(req.user._id) === false) {
+    await downvote(post, req.user._id);
+  }
   res.redirect(`/post/${post._id}`);
 });
 
