@@ -49,7 +49,8 @@ postController.post('/create', hasUser(),
     } catch (error) {
       res.render('create', {
         title: 'Create Page',
-        errors: parseError(error)
+        errors: parseError(error),
+        post
       });
     }
   });
@@ -82,19 +83,39 @@ postController.get('/:id/edit', hasUser(), preload(true), isOwner(), (req, res) 
   });
 });
 
-postController.post('/:id/edit', hasUser(), preload(), isOwner(), async (req, res) => {
-  const post = res.locals.post;
+postController.post('/:id/edit', hasUser(), preload(), isOwner(),
+  body('title')
+    .isLength({ min: 6 }).withMessage('Title should be at least 6 characters long'),
+  body('keyword')
+    .isLength({ min: 6 }).withMessage('Keyword should be at least 6 characters long'),
+  body('location')
+    .isLength({ max: 15 }).withMessage('Location should be at most 15 characters long'),
+  body('date')
+    .isLength({ min: 10, max: 10 }).withMessage('Date should be exactly 10 characters long'),
+  body('image')
+    .matches(/^https?:\/\/.+$/).withMessage('Invalid image URL'),
+  body('description')
+    .isLength({ min: 8 }).withMessage('Description should be at least 8 characters long'),
+  async (req, res) => {
+    const post = res.locals.post;
 
-  try {
-    await updatePost(post, req.body);
-    res.redirect(`/post/${post._id}`);
-  } catch (error) {
-    res.render('edit', {
-      title: 'Edit Page',
-      post: req.body
-    });
-  }
-});
+    try {
+      const { errors } = validationResult(req);
+      if (errors.length > 0) {
+        throw errors;
+      }
+
+      await updatePost(post, req.body);
+      res.redirect(`/post/${post._id}`);
+    } catch (error) {
+      req.body._id = req.params.id;
+      res.render('edit', {
+        title: 'Edit Page',
+        errors: parseError(error),
+        post: req.body
+      });
+    }
+  });
 
 postController.get('/:id/upvote', hasUser(), preload(), async (req, res) => {
   const post = res.locals.post;
