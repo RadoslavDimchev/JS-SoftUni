@@ -1,0 +1,27 @@
+{{#with art}}
+<section id="edit-container">
+    <div class="edit-container-info">
+        <img src="{{picture}}" alt="image">
+
+        <form action="/art/{{_id}}/edit" method="post" class="container-text">
+            <h2>Edit</h2>
+            <p>Edit your masterpiece!</p>
+
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" value="{{title}}">
+
+            <label for="painting-tech">Painting technique:</label>
+            <input type="text" id="painting-tech" name="technique" value="{{technique}}">
+
+            <label for="picture">Art picture:</label>
+            <input type="text" id="picture" name="picture" value="{{picture}}">
+
+            <label for="certificate">Certificate of authenticity:</label>
+            <input type="text" id="certificate" name="certificate" value="{{certificate}}">
+
+            <button class="edit-btn">Edit</button>
+        </form>
+
+    </div>
+</section>
+{{/with}}

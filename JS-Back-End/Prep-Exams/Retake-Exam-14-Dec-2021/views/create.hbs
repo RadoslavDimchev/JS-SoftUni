@@ -1,0 +1,27 @@
+<section id="create-container">
+    <div class="create-container-info">
+        <img src="/static/img/blog-img12.jpg" alt="image">
+
+        <form action="/art/create" method="post" class="container-text">
+
+            <h2>Create Publication</h2>
+            <p>Add your own masterpiece!</p>
+
+            <label for="title">Title:</label>
+            <input type="text" id="title" placeholder="Spring in the garden" name="title" value="{{art.title}}">
+
+            <label for="painting-tech">Painting technique:</label>
+            <input type="text" id="painting-tech" placeholder="Oil paints" name="technique" value="{{art.technique}}">
+
+            <label for="picture">Art picture:</label>
+            <input type="text" id="picture" placeholder="http://..." name="picture" value="{{art.picture}}">
+
+            <label for="certificate">Certificate of authenticity:</label>
+            <input type="text" id="certificate" placeholder="Yes" name="certificate" value="{{art.certificate}}">
+
+            <button class="create-btn">Create</button>
+
+        </form>
+
+    </div>
+</section>

@@ -1,0 +1,32 @@
+<section id="profile-page">
+    <h1>Full Profile Information</h1>
+    <article class="profile-card">
+
+        <article class="profile-card-info">
+            <h2>Username: {{user.username}}</h2>
+            <h3>Address: {{user.address}}</h3>
+            {{#if arts}}
+            <h4>Titles of shared posts by the user: Painting is everything {{arts.join(', ')}}</h4>
+            {{else}}
+            <h4>Titles of shared posts by the user: Not yet.</h4>
+            {{/if}}
+            <!--If the user has shared publications, separate their titles with a comma and a space (, )-->
+            <h4>Titles of shared posts by the user: Painting is everything</h4>
+            <!--If not display:-->
+            <!--<h4>Titles of shared posts by the user: Not yet.</h4>-->
+
+            <!--If the user has created their own publications, separate their titles with a comma and a space (, )-->
+            <h4>Titles of which the user is the author: Spring in the garden, Winter is coming</h4>
+            <!--If not display:-->
+            <!--<h4>Titles of which the user is the author: Not yet.</h4>-->
+            {{#if}}
+            {{else}}
+            {{/if}}
+        </article>
+
+        <article class="profile-card-icon">
+            <img src="/static/img/vip-user.png" alt="art-image1">
+        </article>
+
+    </article>
+</section>
