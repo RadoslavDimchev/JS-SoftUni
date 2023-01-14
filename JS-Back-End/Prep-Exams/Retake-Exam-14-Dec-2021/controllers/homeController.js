@@ -1,5 +1,6 @@
 const homeController = require('express').Router();
-const { getAll } = require('../services/artService');
+const { hasUser, isOwner } = require('../middlewares/guards');
+const { getAll, getAllMyArts, getAllMyShared } = require('../services/artService');
 
 
 homeController.get('/', async (req, res) => {
@@ -16,9 +17,14 @@ homeController.get('/gallery', async (req, res) => {
   });
 });
 
-homeController.get('/my-profile', (req, res) => {
+homeController.get('/my-profile', hasUser(), async (req, res) => {
+  const sharedArts = (await getAllMyShared(req.user._id)).map(a => a.title).join(', ');
+  const myArts = (await getAllMyArts(req.user._id)).map(a => a.title).join(', ');
+
   res.render('profile', {
-    title: 'My Profile Page'
+    title: 'My Profile Page',
+    myArts,
+    sharedArts
   });
 });
 

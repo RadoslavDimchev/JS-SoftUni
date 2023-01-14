@@ -1,11 +1,12 @@
 const artController = require('express').Router();
 const { body, validationResult } = require('express-validator');
+const { hasUser, isOwner } = require('../middlewares/guards');
 const preload = require('../middlewares/preload');
 const { createArt, deleteArt, updateArt, shareArt } = require('../services/artService');
 const { parseError } = require('../utils/parser');
 
 
-artController.get('/create', (req, res) => {
+artController.get('/create', hasUser(), (req, res) => {
   res.render('create', {
     title: 'Create Page'
   });
@@ -25,7 +26,7 @@ artController.get('/:id', preload(true), (req, res) => {
   });
 });
 
-artController.post('/create',
+artController.post('/create', hasUser(),
   body('title')
     .isLength({ min: 6 }).withMessage('Title should be at least 6 characters long'),
   body('technique')
@@ -62,19 +63,19 @@ artController.post('/create',
   }
 );
 
-artController.get('/:id/delete', async (req, res) => {
+artController.get('/:id/delete', hasUser(), isOwner(), async (req, res) => {
   await deleteArt(req.params.id);
   res.redirect('/gallery');
 });
 
-artController.get('/:id/edit', preload(true), (req, res) => {
+artController.get('/:id/edit', hasUser(), isOwner(), preload(true), (req, res) => {
   res.render('edit', {
     title: 'Edit Page',
     art: res.locals.art
   });
 });
 
-artController.post('/:id/edit',
+artController.post('/:id/edit', hasUser(), isOwner(),
   preload(),
   body('title')
     .isLength({ min: 6 }).withMessage('Title should be at least 6 characters long'),
@@ -107,7 +108,7 @@ artController.post('/:id/edit',
   }
 );
 
-artController.get('/:id/share', preload(), async (req, res) => {
+artController.get('/:id/share', hasUser(), preload(), async (req, res) => {
   const art = res.locals.art;
 
   if (art.owner._id.toString() !== req.user._id.toString() &&

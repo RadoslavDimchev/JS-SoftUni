@@ -35,6 +35,14 @@ async function shareArt(art, userId) {
   return art.save();
 }
 
+async function getAllMyArts(userId) {
+  return Art.find({ owner: userId });
+}
+
+async function getAllMyShared(userId) {
+  return Art.find({ users: userId });
+}
+
 module.exports = {
   getAll,
   getById,
@@ -42,5 +50,7 @@ module.exports = {
   createArt,
   updateArt,
   deleteArt,
-  shareArt
+  shareArt,
+  getAllMyArts,
+  getAllMyShared
 };
