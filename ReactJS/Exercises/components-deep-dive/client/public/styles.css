@@ -1,0 +1,283 @@
+/* Global styles - index.css */
+html {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+  outline: none;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857;
+  color: #000;
+  background-color: #f7f7f7;
+  min-width: 350px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(90, 88, 88, 0.01);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(121, 119, 119, 0.651);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #24292f;
+}
+
+.btn {
+  border: none;
+  padding: 5px 10px;
+  height: 40px;
+  color: white;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  font-weight: bold;
+}
+
+.btn:hover {
+  opacity: 0.9;
+  box-shadow: 1px 2px 8px rgb(245, 245, 245);
+}
+
+/* Navigation */
+.navigation-header {
+  width: 100%;
+  height: 4rem;
+  display: flex;
+  padding: 0 20px;
+  justify-content: flex-start;
+  align-items: center;
+  background: #24292f;
+}
+
+.navigation-logo img {
+  width: 2rem;
+  color: white;
+  margin-right: 20px;
+}
+
+.navigation-description {
+  font-size: 1.2rem;
+  color: white;
+}
+
+/* Main */
+
+.main {
+  margin: 1rem auto;
+  width: 92%;
+  min-height: calc(100vh - 9rem);
+}
+
+/* Todo list container */
+
+.todo-list-container {
+  width: 100%;
+  margin: auto;
+  text-align: center;
+}
+
+.todo-list-container h1 {
+  font-size: 2rem;
+  height: 4rem;
+}
+
+.add-btn-container {
+  text-align: right;
+  margin-bottom: 5px;
+}
+
+.add-btn-container button {
+  background-color: #317b6a;
+  border-radius: 0;
+}
+.add-btn-container button:hover {
+  box-shadow: 1px 2px 8px rgb(48, 48, 48);
+}
+
+.table-wrapper {
+  position: relative;
+  height: calc(100vh - 13rem - 45px);
+  overflow-y: scroll;
+  background: white;
+  overflow: auto;
+  width: 100%;
+}
+
+/* Loading spinner */
+
+.loading-container {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  bottom: 0px;
+  right: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-container .loading-spinner {
+  position: sticky;
+  top: calc(50% - 45px);
+  left: calc(50% - 45px);
+  background: #333232e0;
+  border-radius: 15px;
+  z-index: 55;
+  box-shadow: 1px 1px 15px 1px #ffffff;
+  width: 120px;
+  height: 120px;
+}
+
+.loading-container .loading-spinner:after {
+  content: '';
+  display: block;
+  width: 105px;
+  height: 105px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid teal;
+  border-color: #ffffff transparent #ffffff transparent;
+  animation: spinner 1.2s linear infinite;
+}
+
+.loading-container .loading-spinner-text {
+  position: absolute;
+  top: 50px;
+  left: 35px;
+  color: white;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Table */
+
+.table {
+  width: 100%;
+  border-spacing: 0px;
+}
+
+.table thead {
+  position: sticky;
+  width: 100%;
+  top: 0;
+  background: white;
+  z-index: 1;
+}
+
+.table thead tr {
+  background-color: #24292f;
+  color: white;
+}
+
+.table th {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: left;
+  padding: 8px;
+  text-align: center;
+}
+
+.table tr th,
+.table tr td {
+  border-right: 1px solid white;
+}
+
+.table tr th:first-of-type,
+.table tr td:first-of-type {
+  border-left: 1px solid white;
+}
+
+.table-header-task {
+  width: 60%;
+}
+
+.table-header-status,
+.table-header-action {
+  width: 20%;
+}
+
+.table tbody tr {
+  margin: 0px 5px;
+  height: 64px;
+}
+
+.table tbody tr:hover {
+  background: rgba(51, 49, 49, 0.8);
+  color: white;
+}
+
+.table tbody td {
+  line-height: 1.5rem;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: 300;
+  padding: 5px;
+  height: 64px;
+  border-bottom: 1px solid white;
+}
+
+/* Table item */
+
+.todo {
+  margin-bottom: 5px;
+  background-color: rgb(163, 95, 95);
+}
+
+.is-completed {
+  background-color: rgb(95, 163, 101);
+}
+
+.todo-action .todo-btn {
+  background: #24292f;
+  border: none;
+  padding: 5px 10px;
+  height: 40px;
+  color: white;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  font-weight: bold;
+}
+
+/* Footer */
+
+.footer {
+  text-align: center;
+  width: 100%;
+  height: 3rem;
+  padding: 10px;
+  color: white;
+  background: #24292f;
+}
+
+.footer p {
+  font-size: 1.2rem;
+}
