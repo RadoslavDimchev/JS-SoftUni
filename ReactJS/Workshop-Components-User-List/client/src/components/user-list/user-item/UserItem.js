@@ -1,4 +1,4 @@
-import { USER_ACTIONS } from "../UserList";
+import { USER_ACTIONS } from "../UserListConstants";
 
 export const UserItem = ({
   user,

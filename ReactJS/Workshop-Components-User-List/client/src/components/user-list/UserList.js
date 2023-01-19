@@ -7,13 +7,7 @@ import { UserDelete } from './user-delete/UserDelete';
 import { UserDetails } from './user-details/UserDetails';
 import { UserEdit } from './user-edit/UserEdit';
 import { UserItem } from "./user-item/UserItem";
-
-export const USER_ACTIONS = {
-  create: 'create',
-  details: 'details',
-  edit: 'edit',
-  delete: 'delete'
-};
+import { USER_ACTIONS } from './UserListConstants';
 
 export const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -25,8 +19,12 @@ export const UserList = () => {
   }, []);
 
   function clickUserHanlder(action, userId) {
-    userService.getById(userId)
-      .then(user => setUserAction({ user, action }));
+    if (userId !== null) {
+      userService.getById(userId)
+        .then(user => setUserAction({ user, action }));
+    } else {
+      setUserAction({ user: null, action });
+    }
   }
 
   function closeHandler() {
@@ -57,11 +55,6 @@ export const UserList = () => {
         closeHandler();
       });
   }
-
-  // function detailsUserHanlder(userId, action) {
-  //   userService.getById(userId)
-  //     .then(user => setUserAction({ user, action: USER_ACTIONS.details }));
-  // }
 
   function deleteUserHanlder(userId) {
     userService.deleteById(userId)
