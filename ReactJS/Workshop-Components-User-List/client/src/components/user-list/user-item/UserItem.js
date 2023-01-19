@@ -1,18 +1,25 @@
-export const UserItem = () => {
+import { USER_ACTIONS } from "../UserList";
+
+export const UserItem = ({
+  user,
+  clickUserHanlder
+}) => {
+  const imageUrl = user.imageUrl || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png";
+
   return (
     <tr>
       <td>
-        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
+        <img src={imageUrl}
           alt="Peter's profile" className="image" />
       </td>
-      <td>Peter</td>
-      <td>Johnson</td>
-      <td>peter@abv.bg</td>
-      <td>0812345678</td>
-      <td>June 28, 2022</td>
+      <td>{user.firstName}</td>
+      <td>{user.lastName}</td>
+      <td>{user.email}</td>
+      <td>{user.phoneNumber}</td>
+      <td>{user.createdAt.slice(0, 10)}</td>
 
       <td className="actions">
-        <button className="btn edit-btn" title="Edit">
+        <button className="btn edit-btn" title="Edit" onClick={() => clickUserHanlder(USER_ACTIONS.edit, user._id)}>
           <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pen-to-square"
             className="svg-inline--fa fa-pen-to-square" role="img" xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 532 512">
@@ -21,7 +28,7 @@ export const UserItem = () => {
             </path>
           </svg>
         </button>
-        <button className="btn delete-btn" title="Delete">
+        <button className="btn delete-btn" title="Delete" onClick={() => clickUserHanlder(USER_ACTIONS.delete, user._id)}>
           <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash"
             className="svg-inline--fa fa-trash" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 498 512">
             <path fill="currentColor"
@@ -29,7 +36,7 @@ export const UserItem = () => {
             </path>
           </svg>
         </button>
-        <button className="btn info-btn" title="Info">
+        <button className="btn info-btn" title="Info" onClick={() => clickUserHanlder(USER_ACTIONS.details, user._id)}>
           <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="info"
             className="svg-inline--fa fa-info" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="-150 0 512 612">
             <path fill="currentColor"

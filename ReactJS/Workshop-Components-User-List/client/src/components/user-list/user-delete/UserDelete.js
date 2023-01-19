@@ -1,12 +1,15 @@
-export const UserDelete = () => {
+export const UserDelete = ({
+  closeHanlder,
+  deleteUserHanlder
+}) => {
   return (
     <div className="overlay">
-      <div className="backdrop"></div>
+      <div className="backdrop" onClick={closeHanlder}></div>
       <div className="modal">
         <div className="confirm-container">
           <header className="headers">
             <h2>Are you sure you want to delete this account?</h2>
-            <button className="btn close">
+            <button className="btn close" onClick={closeHanlder}>
               <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="xmark"
                 className="svg-inline--fa fa-xmark" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
                 <path fill="currentColor"
@@ -17,8 +20,8 @@ export const UserDelete = () => {
           </header>
           <div className="actions">
             <div id="form-actions">
-              <button id="action-save" className="btn" type="submit">Delete</button>
-              <button id="action-cancel" className="btn" type="button">
+              <button id="action-save" className="btn" type="submit" onClick={deleteUserHanlder} >Delete</button>
+              <button id="action-cancel" className="btn" type="button" onClick={closeHanlder}>
                 Cancel
               </button>
             </div>

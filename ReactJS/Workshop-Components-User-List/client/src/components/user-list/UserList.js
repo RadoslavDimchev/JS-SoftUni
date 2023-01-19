@@ -2,18 +2,111 @@ import { useState, useEffect } from 'react';
 
 import * as userService from '../../services/userService';
 
+import { UserCreate } from './user-create/UserCreate';
+import { UserDelete } from './user-delete/UserDelete';
+import { UserDetails } from './user-details/UserDetails';
+import { UserEdit } from './user-edit/UserEdit';
 import { UserItem } from "./user-item/UserItem";
+
+export const USER_ACTIONS = {
+  create: 'create',
+  details: 'details',
+  edit: 'edit',
+  delete: 'delete'
+};
 
 export const UserList = () => {
   const [users, setUsers] = useState([]);
+  const [userAction, setUserAction] = useState({ user: null, action: null });
 
   useEffect(() => {
     userService.getAll()
       .then(users => setUsers(users));
   }, []);
 
+  function clickUserHanlder(action, userId) {
+    userService.getById(userId)
+      .then(user => setUserAction({ user, action }));
+  }
+
+  function closeHandler() {
+    setUserAction({ user: null, action: null });
+  }
+
+  function createUserHandler(e) {
+    e.preventDefault();
+
+    const body = Object.fromEntries(new FormData(e.target));
+    const userData = {
+      firstName: body.firstName,
+      lastName: body.lastName,
+      email: body.email,
+      phoneNumber: body.phoneNumber,
+      imageUrl: body.imageUrl,
+      address: {
+        country: body.country,
+        city: body.city,
+        street: body.street,
+        streetNumber: body.streetNumber
+      }
+    };
+
+    userService.create(userData)
+      .then(user => {
+        setUsers(oldUsers => [...oldUsers, user]);
+        closeHandler();
+      });
+  }
+
+  // function detailsUserHanlder(userId, action) {
+  //   userService.getById(userId)
+  //     .then(user => setUserAction({ user, action: USER_ACTIONS.details }));
+  // }
+
+  function deleteUserHanlder(userId) {
+    userService.deleteById(userId)
+      .then(user => {
+        setUsers(oldUsers => [...oldUsers.filter(u => u._id !== userId)]);
+        closeHandler();
+      });
+  }
+
+  function editUserHandler(e, userId) {
+    e.preventDefault();
+
+    const body = Object.fromEntries(new FormData(e.target));
+    const userData = {
+      firstName: body.firstName,
+      lastName: body.lastName,
+      email: body.email,
+      phoneNumber: body.phoneNumber,
+      imageUrl: body.imageUrl,
+      address: {
+        country: body.country,
+        city: body.city,
+        street: body.street,
+        streetNumber: body.streetNumber
+      }
+    };
+
+    userService.edit(userData, userId)
+      .then(user => {
+        setUsers(oldUsers => [...oldUsers.map(u => u._id !== userId ? u : user)]);
+        closeHandler();
+      });
+  }
+
   return (
     <>
+      {userAction.action === USER_ACTIONS.create && <UserCreate closeHanlder={closeHandler} createUserHandler={createUserHandler} />}
+
+      {userAction.action === USER_ACTIONS.details && <UserDetails closeHanlder={closeHandler} user={userAction.user} />}
+
+      {userAction.action === USER_ACTIONS.delete && <UserDelete closeHanlder={closeHandler} deleteUserHanlder={() => deleteUserHanlder(userAction.user._id)} />}
+
+      {userAction.action === USER_ACTIONS.edit && <UserEdit closeHanlder={closeHandler} user={userAction.user} editUserHanlder={editUserHandler} />}
+
+
       <div className="table-wrapper">
         <table className="table">
           <thead>
@@ -71,11 +164,11 @@ export const UserList = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map(u => <UserItem key={u._id} />)}
+            {users.map(u => <UserItem key={u._id} user={u} clickUserHanlder={clickUserHanlder} />)}
           </tbody>
         </table>
       </div>
-      <button className="btn-add btn">Add new user</button>
+      <button className="btn-add btn" onClick={() => clickUserHanlder(USER_ACTIONS.create, null)}>Add new user</button>
     </>
   );
 };
