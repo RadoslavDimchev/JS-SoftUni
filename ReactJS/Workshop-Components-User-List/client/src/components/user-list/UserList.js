@@ -31,24 +31,7 @@ export const UserList = () => {
     setUserAction({ user: null, action: null });
   }
 
-  function createUserHandler(e) {
-    e.preventDefault();
-
-    const body = Object.fromEntries(new FormData(e.target));
-    const userData = {
-      firstName: body.firstName,
-      lastName: body.lastName,
-      email: body.email,
-      phoneNumber: body.phoneNumber,
-      imageUrl: body.imageUrl,
-      address: {
-        country: body.country,
-        city: body.city,
-        street: body.street,
-        streetNumber: body.streetNumber
-      }
-    };
-
+  function createUserHandler(userData) {
     userService.create(userData)
       .then(user => {
         setUsers(oldUsers => [...oldUsers, user]);
