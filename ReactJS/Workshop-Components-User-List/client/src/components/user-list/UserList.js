@@ -47,24 +47,7 @@ export const UserList = () => {
       });
   }
 
-  function editUserHandler(e, userId) {
-    e.preventDefault();
-
-    const body = Object.fromEntries(new FormData(e.target));
-    const userData = {
-      firstName: body.firstName,
-      lastName: body.lastName,
-      email: body.email,
-      phoneNumber: body.phoneNumber,
-      imageUrl: body.imageUrl,
-      address: {
-        country: body.country,
-        city: body.city,
-        street: body.street,
-        streetNumber: body.streetNumber
-      }
-    };
-
+  function editUserHandler(userData, userId) {
     userService.edit(userData, userId)
       .then(user => {
         setUsers(oldUsers => [...oldUsers.map(u => u._id !== userId ? u : user)]);
