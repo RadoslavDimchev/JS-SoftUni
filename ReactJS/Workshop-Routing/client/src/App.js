@@ -1,3 +1,5 @@
+import { Route, Routes } from 'react-router-dom';
+
 import './App.css';
 import Catalog from './components/Catalog/Catalog';
 import CreateGame from './components/CreateGame/CreateGame';
@@ -12,14 +14,17 @@ function App() {
   return (
     <div id="box">
       <Header />
+
       <main id="main-content">
-        <Home />
-        <Login />
-        <Register />
-        <CreateGame />
-        <EditGame />
-        <DetailsGame />
-        <Catalog />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/create' element={<CreateGame />} />
+          <Route path='/edit' element={<EditGame />} />
+          <Route path='/details' element={<DetailsGame />} />
+          <Route path='/catalog' element={<Catalog />} />
+        </Routes>
       </main>
     </div>
   );
