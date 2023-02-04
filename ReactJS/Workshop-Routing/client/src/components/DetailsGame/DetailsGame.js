@@ -30,6 +30,22 @@ const DetailsGame = ({ games, addComment }) => {
     }));
   };
 
+  const validateUsername = (ev) => {
+    const valueLength = ev.target.value.length;
+    let errorMsg = '';
+
+    if (valueLength < 4) {
+      errorMsg = 'Username must be at least 4 characters long';
+    } else if (valueLength > 10) {
+      errorMsg = 'Username must be at most 10 characters long';
+    }
+
+    setErrors(state => ({
+      ...state,
+      username: errorMsg
+    }));
+  };
+
   return (
     <section id="game-details">
       <h1>Game Details</h1>
@@ -41,7 +57,6 @@ const DetailsGame = ({ games, addComment }) => {
           <p className="type">{game.category}</p>
         </div>
         <p className="text">{game.summary}</p>
-
         <div className="details-comments">
           <h2>Comments:</h2>
           {game.comments?.length > 0
@@ -51,12 +66,11 @@ const DetailsGame = ({ games, addComment }) => {
             : <p className="no-comment">No comments.</p>
           }
         </div>
-        {/* Edit/Delete buttons ( Only for creator of this game )  */}
         <div className="buttons">
-          <a href="#" className="button">
+          <a href="edit" className="button">
             Edit
           </a>
-          <a href="#" className="button">
+          <a href="delete" className="button">
             Delete
           </a>
         </div>
@@ -72,7 +86,12 @@ const DetailsGame = ({ games, addComment }) => {
             placeholder="Peter Smith"
             value={values.username}
             onChange={changeHanlder}
+            onBlur={validateUsername}
           />
+          {errors.username &&
+            <div style={{ color: 'red' }}>{errors.username}</div>
+          }
+
           <textarea
             name="comment"
             placeholder="Comment......"
