@@ -22,6 +22,26 @@ function App() {
 
   const addGameHandler = (gameData) => setGames(state => [...state, gameData]);
 
+  const addComment = (commentData, gameId) => {
+    setGames(state => {
+      let game = {};
+      const newGames = [];
+
+      state.forEach(g => {
+        if (g._id === gameId) {
+          game = g;
+          const comments = game.comments || [];
+          comments.push(commentData);
+          game.comments = comments;
+        } else {
+          newGames.push({ ...g });
+        }
+      });
+
+      return [...newGames, { ...game }];
+    });
+  };
+
   return (
     <div id="box">
       <Header />
@@ -34,7 +54,7 @@ function App() {
           <Route path='/create' element={<CreateGame addGameHandler={addGameHandler} />} />
           <Route path='/edit' element={<EditGame />} />
           <Route path='/catalog' element={<Catalog games={games} />} />
-          <Route path='/catalog/:gameId' element={<DetailsGame games={games} />} />
+          <Route path='/catalog/:gameId' element={<DetailsGame games={games} addComment={addComment} />} />
         </Routes>
       </main>
     </div>
