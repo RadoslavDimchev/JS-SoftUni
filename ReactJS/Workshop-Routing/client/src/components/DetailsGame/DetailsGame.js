@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import Comment from "./Comment/Comment";
 
 const DetailsGame = ({ games, addComment }) => {
   const [values, setValues] = useState({
@@ -15,7 +16,11 @@ const DetailsGame = ({ games, addComment }) => {
 
   const addCommentHanlder = (ev) => {
     ev.preventDefault();
+
     addComment(`${values.username}: ${values.comment}`, gameId);
+
+    values.username = '';
+    values.comment = '';
   };
 
   const changeHanlder = (ev) => {
@@ -39,17 +44,12 @@ const DetailsGame = ({ games, addComment }) => {
 
         <div className="details-comments">
           <h2>Comments:</h2>
-          <ul>
-            {/* list all comments for current game (If any) */}
-            <li className="comment">
-              <p>Content: I rate this one quite highly.</p>
-            </li>
-            <li className="comment">
-              <p>Content: The best game.</p>
-            </li>
-          </ul>
-          {/* Display paragraph: If there are no games in the database */}
-          <p className="no-comment">No comments.</p>
+          {game.comments?.length > 0
+            ? <ul>
+              {game.comments.map((c, i) => <Comment key={i} comment={c} />)}
+            </ul>
+            : <p className="no-comment">No comments.</p>
+          }
         </div>
         {/* Edit/Delete buttons ( Only for creator of this game )  */}
         <div className="buttons">
