@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import './App.css';
@@ -9,8 +9,9 @@ import EditGame from './components/EditGame/EditGame';
 import Header from './components/Header/Header';
 import Home from './components/Home';
 import Login from './components/Login/Login';
-import Register from './components/Register/Register';
 import * as gameService from './services/gameService';
+
+const Register = lazy(() => import('./components/Register/Register'));
 
 function App() {
   const [games, setGames] = useState([]);
@@ -50,7 +51,11 @@ function App() {
         <Routes>
           <Route path='/' element={<Home games={games} />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
+          <Route path='/register' element={
+            <Suspense fallback={<span>Loading...</span>}>
+              <Register />
+              </Suspense>
+          } />
           <Route path='/create' element={<CreateGame addGameHandler={addGameHandler} />} />
           <Route path='/edit' element={<EditGame />} />
           <Route path='/catalog' element={<Catalog games={games} />} />
