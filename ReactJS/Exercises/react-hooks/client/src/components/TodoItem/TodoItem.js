@@ -6,7 +6,7 @@ const TodoItem = ({ todo }) => {
   const [values, setValues] = useState({
     title: todo.title
   });
-  const { editTodoHanlder, deleteTodoHanlder } = useContext(TodoContext);
+  const { editTodoHanlder, deleteTodoHanlder, markTodoHanlder } = useContext(TodoContext);
 
   const editSumbitHandler = (e) => {
     e.preventDefault();
@@ -30,9 +30,12 @@ const TodoItem = ({ todo }) => {
           <input type="submit" value='save' />
         </form>
         : <>
-          {todo.title}
+          <span style={{ textDecoration: todo.isMarked ? 'line-through' : '' }} >
+            {todo.title}
+          </span>
           <button onClick={() => setEditMode(true)}>edit</button >
           <button onClick={() => deleteTodoHanlder(todo._id)}>delete</button>
+          <button onClick={() => markTodoHanlder(todo)}>mark</button>
         </>
       }
     </li >

@@ -7,7 +7,7 @@ const CreateTodo = ({ createTodoHandler }) => {
 
   const createSubmitHanldler = (e) => {
     e.preventDefault();
-    createTodoHandler({ title: values.title });
+    createTodoHandler({ title: values.title, isMarkerd: false });
     setValues({ title: '' });
   };
 

@@ -23,7 +23,7 @@ function App() {
   const editTodoHanlder = async (todoData, editedTodoData) => {
     try {
       const editedTodo = await editTodo({ ...todoData, ...editedTodoData });
-      setTodos(state => state.map(t => t._id !== editedTodo._id ? t : editedTodo));
+      setTodos(state => state.map(t => t._id === editedTodo._id ? editedTodo : t));
     } catch (error) {
       console.error(error.message);
     }
@@ -40,8 +40,17 @@ function App() {
     }
   };
 
+  const markTodoHanlder = async (todoData) => {
+    try {
+      const editedTodo = await editTodo({ ...todoData, isMarked: !todoData.isMarked });
+      setTodos(state => state.map(t => t._id === editedTodo._id ? editedTodo : t));
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   return (
-    <TodoContext.Provider value={{ todos, editTodoHanlder, deleteTodoHanlder }}>
+    <TodoContext.Provider value={{ todos, editTodoHanlder, deleteTodoHanlder, markTodoHanlder }}>
       <div className="App">
         <h1>TODO APP</h1>
 
