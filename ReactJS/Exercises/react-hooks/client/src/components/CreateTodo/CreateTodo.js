@@ -1,26 +1,27 @@
 import { useState } from 'react';
 
-const CreateTodo = () => {
+const CreateTodo = ({ createTodoHandler }) => {
   const [values, setValues] = useState({
     title: ''
   });
 
-  const createTodoHanlder = (e) => {
+  const createSubmitHanldler = (e) => {
     e.preventDefault();
-    console.log(values);
+    createTodoHandler({ title: values.title });
+    setValues({ title: '' });
   };
 
   const changeHanlder = (e) => {
     setValues(state => ({
       ...state,
-      [e.target.name]: [e.target.values]
+      [e.target.name]: e.target.value
     }));
   };
 
   return (
-    <form onSubmit={createTodoHanlder}>
-      <input type="text" name='title' placeholder='Write homework' value={values.value} onChange={changeHanlder} />
-      <input type="submit" value='Create' />
+    <form onSubmit={createSubmitHanldler}>
+      <input type="text" name='title' placeholder='Write homework' value={values.title} onChange={changeHanlder} />
+      <input type="submit" value='create' />
     </form>
   );
 };
