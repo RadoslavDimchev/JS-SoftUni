@@ -1,10 +1,9 @@
-import { useState } from 'react';
-
 import styles from './CreateTodo.module.css';
 import '../../App.css';
+import useChangeHanlder from '../../hooks/useChangeHanlder';
 
 const CreateTodo = ({ createTodoHandler }) => {
-  const [values, setValues] = useState({
+  const { values, setValues, changeHanlder } = useChangeHanlder({
     title: ''
   });
 
@@ -12,13 +11,6 @@ const CreateTodo = ({ createTodoHandler }) => {
     e.preventDefault();
     createTodoHandler({ title: values.title, isMarkerd: false });
     setValues({ title: '' });
-  };
-
-  const changeHanlder = (e) => {
-    setValues(state => ({
-      ...state,
-      [e.target.name]: e.target.value
-    }));
   };
 
   return (

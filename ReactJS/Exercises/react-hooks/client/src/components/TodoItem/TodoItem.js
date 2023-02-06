@@ -1,28 +1,30 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { TodoContext } from "../../contexts/TodoContext";
 import styles from "./TodoItem.module.css";
 import '../../App.css';
+import useChangeHanlder from "../../hooks/useChangeHanlder";
 
 const TodoItem = ({ todo }) => {
   const [editMode, setEditMode] = useState(false);
-  const [values, setValues] = useState({
+  const { values, changeHanlder } = useChangeHanlder({
     title: todo.title
   });
   const { editTodoHanlder, deleteTodoHanlder, markTodoHanlder } = useContext(TodoContext);
+
+  useEffect(() => {
+    console.log('mount');
+
+    return () => {
+      console.log('unmount');
+    };
+  });
 
   const editSumbitHandler = (e) => {
     e.preventDefault();
 
     editTodoHanlder(todo, { title: values.title });
     setEditMode(false);
-  };
-
-  const changeHanlder = (e) => {
-    setValues(state => ({
-      ...state,
-      [e.target.name]: e.target.value
-    }));
   };
 
   return (
