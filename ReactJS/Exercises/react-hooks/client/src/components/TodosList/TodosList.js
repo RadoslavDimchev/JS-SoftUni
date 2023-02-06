@@ -1,10 +1,6 @@
-import { useContext } from "react";
-import { TodoContext } from "../../contexts/TodoContext";
 import TodoItem from "../TodoItem/TodoItem";
 
-const TodosList = () => {
-  const { todos } = useContext(TodoContext);
-
+const TodosList = ({ todos }) => {
   return (
     <>
       {todos.length > 0

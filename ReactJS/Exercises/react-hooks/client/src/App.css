@@ -1,0 +1,26 @@
+.todos {
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  padding: 16px 32px;
+  max-width: 490px;
+  margin: 50px auto;
+}
+
+.btn {
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  width: 5rem;
+  margin: 4px;
+}
+
+.btn:hover {
+  color: white;
+}
+
+.title {
+  text-align: center;
+  padding: 8px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: black;
+  background-color: greenyellow;
+}

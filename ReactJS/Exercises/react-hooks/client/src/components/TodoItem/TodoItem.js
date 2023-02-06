@@ -1,5 +1,8 @@
 import { useContext, useState } from "react";
+
 import { TodoContext } from "../../contexts/TodoContext";
+import styles from "./TodoItem.module.css";
+import '../../App.css';
 
 const TodoItem = ({ todo }) => {
   const [editMode, setEditMode] = useState(false);
@@ -33,9 +36,9 @@ const TodoItem = ({ todo }) => {
           <span style={{ textDecoration: todo.isMarked ? 'line-through' : '' }} >
             {todo.title}
           </span>
-          <button onClick={() => setEditMode(true)}>edit</button >
-          <button onClick={() => deleteTodoHanlder(todo._id)}>delete</button>
-          <button onClick={() => markTodoHanlder(todo)}>mark</button>
+          <button className={`btn ${styles['edit-btn']}`} onClick={() => setEditMode(true)}>edit</button >
+          <button className={`btn ${styles['delete-btn']}`} onClick={() => deleteTodoHanlder(todo._id)}>delete</button>
+          <button className={`btn ${styles['mark-btn']}`} onClick={() => markTodoHanlder(todo)}>mark</button>
         </>
       }
     </li >

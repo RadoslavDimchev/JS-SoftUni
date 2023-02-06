@@ -1,5 +1,8 @@
 import { useState } from 'react';
 
+import styles from './CreateTodo.module.css';
+import '../../App.css';
+
 const CreateTodo = ({ createTodoHandler }) => {
   const [values, setValues] = useState({
     title: ''
@@ -20,8 +23,18 @@ const CreateTodo = ({ createTodoHandler }) => {
 
   return (
     <form onSubmit={createSubmitHanldler}>
-      <input type="text" name='title' placeholder='Write homework' value={values.title} onChange={changeHanlder} />
-      <input type="submit" value='create' />
+      <input
+        type="text"
+        name='title'
+        placeholder='Write homework'
+        value={values.title}
+        onChange={changeHanlder}
+        className={styles['input-title']}
+      />
+      <input
+        type="submit"
+        value='create'
+        className={`btn ${styles['create-btn']}`} />
     </form>
   );
 };

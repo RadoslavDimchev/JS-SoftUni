@@ -3,6 +3,7 @@ import TodosList from "./components/TodosList/TodosList";
 import { TodoContext } from "./contexts/TodoContext";
 import useFetch from "./hooks/useFetch";
 import useTodoApi from "./hooks/useTodoApi";
+import './App.css';
 
 function App() {
   const [todos, setTodos, isLoading] = useFetch('http://localhost:3030/jsonstore/todos');
@@ -50,13 +51,13 @@ function App() {
   };
 
   return (
-    <TodoContext.Provider value={{ todos, editTodoHanlder, deleteTodoHanlder, markTodoHanlder }}>
-      <div className="App">
-        <h1>TODO APP</h1>
+    <TodoContext.Provider value={{ editTodoHanlder, deleteTodoHanlder, markTodoHanlder }}>
+      <div className='todos'>
+        <h1 className="title" >TODO APP</h1>
 
         {isLoading
           ? <span>Loading...</span>
-          : <TodosList />
+          : <TodosList todos={todos} />
         }
 
         <CreateTodo createTodoHandler={createTodoHandler} />
