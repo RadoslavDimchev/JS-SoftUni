@@ -12,6 +12,7 @@ import EditGame from './components/EditGame/EditGame';
 import Header from './components/Header/Header';
 import Home from './components/Home';
 import Login from './components/Login/Login';
+import Logout from './components/Logout/Logout';
 
 const Register = lazy(() => import('./components/Register/Register'));
 
@@ -20,6 +21,8 @@ function App() {
   const [auth, setAuth] = useState({});
 
   const userLogin = (authData) => setAuth(authData);
+
+  const userLogout = () => setAuth({});
 
   useEffect(() => {
     gameService.getAll()
@@ -49,7 +52,7 @@ function App() {
   };
 
   return (
-    <AuthContext.Provider value={{ user: auth, userLogin }}>
+    <AuthContext.Provider value={{ user: auth, userLogin, userLogout }}>
       <div id="box">
         <Header />
 
@@ -62,6 +65,7 @@ function App() {
                 <Register />
               </Suspense>
             } />
+            <Route path='/logout' element={<Logout />} />
             <Route path='/create' element={<CreateGame addGameHandler={addGameHandler} />} />
             <Route path='/edit' element={<EditGame />} />
             <Route path='/catalog' element={<Catalog games={games} />} />
