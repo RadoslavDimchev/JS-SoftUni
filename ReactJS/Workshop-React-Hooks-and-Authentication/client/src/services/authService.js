@@ -16,3 +16,6 @@ export const logout = async (accessToken) => {
     console.error(error.message);
   }
 };
+
+export const register = (email, password) =>
+  request.post('/users/register', { email, password });
