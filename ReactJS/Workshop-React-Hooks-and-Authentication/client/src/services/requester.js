@@ -11,6 +11,11 @@ const request = async (method, url, data) => {
     options.body = JSON.stringify(data);
   }
 
+  const user = localStorage.getItem('auth');
+  if (user) {
+    options.headers['X-Authorization'] = JSON.parse(user).accessToken;
+  }
+
   try {
     const response = await fetch(`${BASE_URL}${url}`, options);
 
