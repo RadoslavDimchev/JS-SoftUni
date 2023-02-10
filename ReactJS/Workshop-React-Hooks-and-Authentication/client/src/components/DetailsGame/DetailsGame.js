@@ -1,8 +1,11 @@
-import { useState } from "react";
-import { useParams } from "react-router-dom";
-import Comment from "./Comment/Comment";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
-const DetailsGame = ({ games, addComment }) => {
+import Comment from "./Comment/Comment";
+import * as gameService from "../../services/gameService";
+
+
+const DetailsGame = ({ addComment }) => {
   const [values, setValues] = useState({
     username: '',
     comment: ''
@@ -11,8 +14,13 @@ const DetailsGame = ({ games, addComment }) => {
     username: '',
     comment: ''
   });
+  const [currentGame, setCurrentGame] = useState({});
   const { gameId } = useParams();
-  const game = games.find(g => g._id === gameId);
+
+  useEffect(() => {
+    gameService.getById(gameId)
+      .then(res => setCurrentGame(res));
+  }, [gameId]);
 
   const addCommentHanlder = (ev) => {
     ev.preventDefault();
@@ -51,25 +59,25 @@ const DetailsGame = ({ games, addComment }) => {
       <h1>Game Details</h1>
       <div className="info-section">
         <div className="game-header">
-          <img className="game-img" src={game.imageUrl} alt={game.title} />
-          <h1>{game.title}</h1>
-          <span className="levels">MaxLevel: {game.maxLevel}</span>
-          <p className="type">{game.category}</p>
+          <img className="game-img" src={currentGame.imageUrl} alt={currentGame.title} />
+          <h1>{currentGame.title}</h1>
+          <span className="levels">MaxLevel: {currentGame.maxLevel}</span>
+          <p className="type">{currentGame.category}</p>
         </div>
-        <p className="text">{game.summary}</p>
+        <p className="text">{currentGame.summary}</p>
         <div className="details-comments">
           <h2>Comments:</h2>
-          {game.comments?.length > 0
+          {currentGame.comments?.length > 0
             ? <ul>
-              {game.comments.map((c, i) => <Comment key={i} comment={c} />)}
+              {currentGame.comments.map((c, i) => <Comment key={i} comment={c} />)}
             </ul>
             : <p className="no-comment">No comments.</p>
           }
         </div>
         <div className="buttons">
-          <a href="edit" className="button">
+          <Link to={`edit`} className="button">
             Edit
-          </a>
+          </Link>
           <a href="delete" className="button">
             Delete
           </a>

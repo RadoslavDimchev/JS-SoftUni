@@ -1,3 +1,15 @@
 import * as request from "./requester";
 
-export const getAll = () => request.get('/data/games');
+const URL = '/data/games';
+
+export const getAll = () =>
+  request.get(URL);
+
+export const getById = (gameId) =>
+  request.get(`${URL}/${gameId}`);
+
+export const create = (gameData) =>
+  request.post(URL, gameData);
+
+export const edit = (gameId, gameData) =>
+  request.put(`${URL}/${gameId}`, gameData);

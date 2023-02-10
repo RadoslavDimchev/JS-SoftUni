@@ -1,8 +1,9 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import uniqid from 'uniqid';
+import { useContext, useState } from "react";
+import { GameContext } from "../../contexts/GameContext";
 
-const CreateGame = ({ addGameHandler }) => {
+import * as gameService from '../../services/gameService';
+
+const CreateGame = () => {
   const [values, setValues] = useState({
     title: '',
     category: '',
@@ -10,13 +11,13 @@ const CreateGame = ({ addGameHandler }) => {
     imageUrl: '',
     summary: ''
   });
-  const navigate = useNavigate();
+  const { addGameHandler } = useContext(GameContext);
 
   const createSubmitHandler = (ev) => {
     ev.preventDefault();
-    const _id = uniqid();
-    addGameHandler({ ...values, _id });
-    navigate(`/catalog/${_id}`);
+
+    gameService.create(values)
+      .then(res => addGameHandler(res));
   };
 
   const changeHanlder = (ev) => {
