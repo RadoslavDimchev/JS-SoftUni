@@ -36,6 +36,8 @@ addController.post('/create', hasUser(), async (req, res) => {
 addController.get('/:id', async (req, res) => {
   const add = await getById(req.params.id);
 
+  console.log(add);
+
   if (req.user) {
     add.isOwner = req.user._id.toString() === add.owner._id.toString();
     add.hasApplied = add.users.map(b => b._id.toString()).includes(req.user._id.toString());

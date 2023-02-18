@@ -1,0 +1,42 @@
+<section id="create-section" class="">
+    <h1 class="item">New Auction</h1>
+    <div class="item padded align-center">
+
+        <form class="layout left large" method="post">
+
+            <div class="col aligned">
+                <label>
+                    <span>Title</span>
+                    <input type="text" name="title" value="{{auction.title}}"></label>
+                <label>
+                    <span>Category</span>
+                    <select name="category">
+                        <option value="Real Estate">Real Estate</option>
+                        <option value="Vehicles">Vehicles</option>
+                        <option value="Furniture">Furniture</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </label>
+                <label>
+                    <span>Image URL</span>
+                    <input type="text" name="imageUrl" value="{{auction.imageUrl}}"></label>
+                <label>
+                    <span>Starting price</span>
+                    <input type="number" name="price" value="{{auction.price}}"></label>
+            </div>
+
+            <div class="content pad-med align-center vertical">
+                <label>
+                    <span>Description</span>
+                    <textarea name="description">{{auction.description}}</textarea>
+                </label>
+
+                <div class="align-center">
+                    <input class="action" type="submit" value="Publish Item">
+                </div>
+            </div>
+
+        </form>
+    </div>
+</section>
