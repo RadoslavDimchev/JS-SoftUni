@@ -5,7 +5,7 @@ const User = require('../models/User');
 
 const JWT_SECRET = 'sodiljsdfh2345do';
 
-async function register(username, password) {
+async function register(fullName, username, password) {
   const exsisting = await User.findOne({ username }).collation({ locale: 'en', strength: 2 });
   if (exsisting) {
     throw new Error('Username is taken');
@@ -14,11 +14,11 @@ async function register(username, password) {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const user = await User.create({
+    fullName,
     username,
     hashedPassword
   });
 
-  // TODO see if register creates user session
   return createSession(user);
 }
 
@@ -36,10 +36,11 @@ async function login(username, password) {
   return createSession(user);
 }
 
-function createSession({ _id, username }) {
+function createSession({ _id, username, fullName }) {
   const payload = {
     _id,
-    username
+    username,
+    fullName
   };
 
   return jwt.sign(payload, JWT_SECRET);

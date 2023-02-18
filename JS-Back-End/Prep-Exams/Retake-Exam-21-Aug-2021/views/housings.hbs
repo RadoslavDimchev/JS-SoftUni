@@ -1,0 +1,12 @@
+<section id="all-listings">
+    <h1>Apartments for recents</h1>
+    {{#if housings}}
+    {{#each housings }}
+    {{> housing}}
+    {{/each}}
+    {{else}}
+    <div class="no-data-listing">
+        <p class="no-offer">No match was found for the submitted type...</p>
+    </div>
+    {{/if}}
+</section>

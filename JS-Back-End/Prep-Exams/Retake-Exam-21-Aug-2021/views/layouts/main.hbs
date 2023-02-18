@@ -21,17 +21,17 @@
     {{/if}}
 
     <nav>
-      <a href="#">Home</a>
+      <a href="/">Home</a>
       <ul>
-        <!-- Guest users and Logged users -->
-        <li><a href="#">Housing for rent</a></li>
-        <!-- Guest users -->
-        <li><a href="#">Login</a></li>
+        <li><a href="/housings">Housing for rent</a></li>
+        {{#if user}}
+        <li><a href="/housing/create">Create offer</a></li>
+        <li><a href="/search">Search</a></li>
+        <li><a href="/auth/logout/">Logout</a></li>
+        {{else}}
+        <li><a href="/auth/login">Login</a></li>
         <li><a href="/auth/register">Register</a></li>
-        <!-- Logged users -->
-        <li><a href="#">Create offer</a></li>
-        <li><a href="#">Search</a></li>
-        <li><a href="#">Logout</a></li>
+        {{/if}}
       </ul>
     </nav>
 

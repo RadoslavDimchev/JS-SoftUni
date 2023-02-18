@@ -1,9 +1,9 @@
 const { Schema, model } = require('mongoose');
 
 
-// TODO add User props and validations
 const userSchema = new Schema({
-  username: { type: String, required: true, unique: true, minLength: [3, 'Username must be at least 3 symbols'] },
+  fullName: { type: String, required: true },
+  username: { type: String, required: true, unique: true, minLength: [5, 'Username must be at least 5 symbols'] },
   hashedPassword: { type: String, required: true }
 });
 
