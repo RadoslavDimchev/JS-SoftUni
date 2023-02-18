@@ -1,0 +1,58 @@
+<section class="py-5 details" id="trip-details-page">
+    <div class="container">
+        <div class="destination">
+            <div>
+                <span class="icon"><i class="fas fa-map-marked-alt"></i></span>
+                <h5> from <span>{{trip.startPoint}}</span> to <span>{{trip.endPoint}}</span> </h5>
+            </div>
+            <div>
+                <span class="icon"><i class="fas fa-calendar-alt"></i></span>
+                <h5> <span>{{trip.date}}</span> at <span>{{trip.time}}</span> </h5>
+            </div>
+        </div>
+        <p class="line"></p>
+        <div class="buddies-info">
+            <i class="fas fa-users buddies"></i>
+            <h5>Shared trip Buddies</h5>
+            <div>
+                {{#if trip.buddies}}
+                <p>{{trip.buddiesStr}}</p>
+                {{else}}
+                <p>there are no buddies yet...</p>
+                {{/if}}
+            </div>
+            <h5>Driver: <span>{{trip.owner.email}}</span> </h5>
+        </div>
+        <p class="line"></p>
+        <h5 class="brand">Car Brand: <span class="lead">{{trip.carBrand}}</span></h5>
+        <div class="trip-info">
+            <div>
+                <img class="img-fluid rounded" src="{{trip.carImage}}" alt="car-image">
+            </div>
+            <div class="trip-desc">
+                <h5>Information about the trip</h5>
+                <textarea class="lead" disabled>{{trip.description}}</textarea>
+                <h5>Price: <span class="lead">{{trip.price}}</span> BGN</h5>
+
+                {{#if user}}
+                <div class="actions">
+                    {{#if trip.isOwner}}
+                    <a href="/trip/{{trip._id}}/delete" class="btn btn-danger">Delete this trip</a>
+                    <a href="/trip/{{trip._id}}/edit" class="btn btn-warning">Edit this trip</a>
+                    {{else}}
+                        {{#if trip.hasJoined}}
+                            <span class="btn btn-info">Already joined. Don't be late!</span>
+                        {{else}}
+                            {{#if trip.seats}}
+                            <a href="/trip/{{trip._id}}/join" class="btn btn-join">Join now, {{trip.seats}} seats left!</a>
+                             {{else}}
+                            <span class="btn btn-secondary">No seats available! [0]</span>
+                            {{/if}}
+                        {{/if}}
+                    {{/if}}
+                </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</section>
