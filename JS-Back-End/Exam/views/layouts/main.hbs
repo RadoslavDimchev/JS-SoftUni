@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Starts Head Section -->
+
+<head>
+  <link rel="stylesheet" href="/static/css/styles.css">
+  <link rel="icon" type="image/x-icon" href="/static/images/free-30-instagram-stories-icons23_122570.png">
+  <title>{{title}}</title>
+</head>
+
+<!-- Starts Body Section -->
+
+<body>
+  <!--Error Container-->
+  {{#if errors}}
+  <div>
+    <div class="errorContainer">
+      {{#each errors}}
+      <p>{{this}}</p>
+      {{/each}}
+    </div>
+  </div>
+  {{/if}}
+
+  <!-- Starts Header Section with Navigation Bar -->
+  <header>
+    <nav class="navbar">
+      <div class="container">
+        <div class="logo">
+          <!-- Link to Home Page -->
+          <a href="/">
+            <img width="50px" src="/static/images/free-30-instagram-stories-icons23_122570.png" alt="img1">
+          </a>
+          <!-- Link to Home Page -->
+          <a class="home" href="/">
+            <i>Petstagram</i>
+          </a>
+        </div>
+
+        <div class="nav-links">
+          <ul class="nav-group">
+            <li class="nav-item">
+              <!-- Link to Catalog Page -->
+              <a href="/catalog">
+                <i>Catalog</i>
+              </a>
+            </li>
+
+            {{#if user}}
+            <!--For login users-->
+            <li class="nav-item">
+              <!-- Link to Add Photo Page -->
+              <a href="/photo/create">
+                <i>Add Photo</i>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <!-- Link to Profile Page -->
+              <a href="/profile">
+                <i>Profile</i>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <!-- Link to Logout Page -->
+              <a href="/auth/logout">
+                <i>Logout</i>
+              </a>
+            </li>
+            {{else}}
+            <!--For Guest User-->
+            <li class="nav-item">
+              <!-- Link to Login Page -->
+              <a href="/auth/login">
+                <i>Login</i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <!-- Link to Register Page -->
+              <a href="/auth/register">
+                <i>Register</i>
+              </a>
+            </li>
+            {{/if}}
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Starts Main Section -->
+  <main>{{{body}}}</main>
+
+  <!-- Starts Footer Section -->
+  <div class="footer">
+    <span class="footer-section">
+      © 2023 SoftUni Back-End Exam
+    </span>
+  </div>
+
+</body>
+
+</html>
