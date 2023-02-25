@@ -1,20 +1,27 @@
-import { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import Comment from "./Comment/Comment";
 import * as gameService from "../../services/gameService";
+import * as commentService from "../../services/commentService";
 import { GameContext } from "../../contexts/GameContext";
 
 
 const DetailsGame = () => {
-  const [currentGame, setCurrentGame] = useState({});
   const { gameId } = useParams();
-  const { addComment } = useContext(GameContext);
+  const { addComment, fetchGameDetails, selectGame, removeGameHandler } = useContext(GameContext);
+  const navigate = useNavigate();
+
+  const currentGame = selectGame(gameId);
 
   useEffect(() => {
-    gameService.getById(gameId)
-      .then(res => setCurrentGame(res));
-  }, [gameId]);
+    (async () => {
+      const gameDetails = await gameService.getById(gameId);
+      const gameComments = await commentService.getByGameId(gameId);
+
+      fetchGameDetails(gameId, { ...gameDetails, comments: gameComments.map(x => `${x.user.email}: ${x.text}`) });
+    })();
+  }, [gameId, fetchGameDetails]);
 
   const addCommentHanlder = (ev) => {
     ev.preventDefault();
@@ -22,8 +29,23 @@ const DetailsGame = () => {
     const formData = new FormData(ev.target);
 
     const comment = formData.get('comment');
+    // validations
 
-    // addComment(`${values.username}: ${values.comment}`, gameId);
+    commentService.create(gameId, comment)
+      .then(() => {
+        addComment(gameId, comment);
+      });
+  };
+
+  const gameDeleteHandler = () => {
+    const confirmation = window.confirm('Are you sure you want to delete this game?');
+    if (confirmation) {
+      gameService.remove(gameId)
+        .then(() => {
+          removeGameHandler(gameId);
+          navigate('/catalog');
+        });
+    }
   };
 
   return (
@@ -50,9 +72,9 @@ const DetailsGame = () => {
           <Link to={`edit`} className="button">
             Edit
           </Link>
-          <a href="delete" className="button">
+          <button onClick={gameDeleteHandler} className="button">
             Delete
-          </a>
+          </button>
         </div>
       </div>
 

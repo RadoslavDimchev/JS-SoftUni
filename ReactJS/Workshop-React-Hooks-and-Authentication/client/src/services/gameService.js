@@ -13,3 +13,6 @@ export const create = (gameData) =>
 
 export const edit = (gameId, gameData) =>
   request.put(`${URL}/${gameId}`, gameData);
+
+export const remove = (gameId) =>
+  request.del(`${URL}/${gameId}`);

@@ -8,12 +8,16 @@ export const GameContext = createContext();
 const gameReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_GAMES':
-      return [...action.payload];
+      return action.payload.map(x => ({ ...x, comments: [] }));
     case 'ADD_GAME':
-      console.log([...state, action.payload]);
       return [...state, action.payload];
     case 'EDIT_GAME':
+    case 'FETCH_GAME_DETAILS':
       return state.map(x => x._id === action.gameId ? action.payload : x);
+    case 'ADD_COMMENT':
+      return state.map(x => x._id === action.gameId ? { ...x, comments: [...x.comments, action.payload] } : x);
+    case 'REMOVE_GAME':
+      return state.filter(x => x._id !== action.gameId);
     default:
       return state;
   }
@@ -31,6 +35,18 @@ export const GameProvider = ({ children }) => {
       }));
   }, []);
 
+  const fetchGameDetails = (gameId, gameData) => {
+    dispatch({
+      type: 'FETCH_GAME_DETAILS',
+      payload: gameData,
+      gameId
+    });
+  };
+
+  const selectGame = (gameId) => {
+    return games.find(x => x._id === gameId) || {};
+  };
+
   const addGameHandler = (gameData) => {
     dispatch({
       type: 'ADD_GAME',
@@ -47,28 +63,31 @@ export const GameProvider = ({ children }) => {
     });
   };
 
-  const addComment = (commentData, gameId) => {
-    // setGames(state => {
-    //   let game = {};
-    //   const newGames = [];
+  const addComment = (gameId, commentData) => {
+    dispatch({
+      type: 'ADD_COMMENT',
+      payload: commentData,
+      gameId
+    });
+  };
 
-    //   state.forEach(g => {
-    //     if (g._id === gameId) {
-    //       game = g;
-    //       const comments = game.comments || [];
-    //       comments.push(commentData);
-    //       game.comments = comments;
-    //     } else {
-    //       newGames.push({ ...g });
-    //     }
-    //   });
-
-    //   return [...newGames, { ...game }];
-    // });
+  const removeGameHandler = (gameId) => {
+    dispatch({
+      type: 'REMOVE_GAME',
+      gameId
+    });
   };
 
   return (
-    <GameContext.Provider value={{ games, addGameHandler, editGameHanlder, addComment }} >
+    <GameContext.Provider value={{
+      games,
+      addGameHandler,
+      editGameHanlder,
+      addComment,
+      fetchGameDetails,
+      selectGame,
+      removeGameHandler
+    }} >
       {children}
     </GameContext.Provider>
   );
