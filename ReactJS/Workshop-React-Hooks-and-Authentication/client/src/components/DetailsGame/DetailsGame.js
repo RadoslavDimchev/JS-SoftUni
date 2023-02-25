@@ -7,14 +7,6 @@ import { GameContext } from "../../contexts/GameContext";
 
 
 const DetailsGame = () => {
-  const [values, setValues] = useState({
-    username: '',
-    comment: ''
-  });
-  const [errors, setErrors] = useState({
-    username: '',
-    comment: ''
-  });
   const [currentGame, setCurrentGame] = useState({});
   const { gameId } = useParams();
   const { addComment } = useContext(GameContext);
@@ -27,33 +19,11 @@ const DetailsGame = () => {
   const addCommentHanlder = (ev) => {
     ev.preventDefault();
 
-    addComment(`${values.username}: ${values.comment}`, gameId);
+    const formData = new FormData(ev.target);
 
-    values.username = '';
-    values.comment = '';
-  };
+    const comment = formData.get('comment');
 
-  const changeHanlder = (ev) => {
-    setValues(state => ({
-      ...state,
-      [ev.target.name]: ev.target.value
-    }));
-  };
-
-  const validateUsername = (ev) => {
-    const valueLength = ev.target.value.length;
-    let errorMsg = '';
-
-    if (valueLength < 4) {
-      errorMsg = 'Username must be at least 4 characters long';
-    } else if (valueLength > 10) {
-      errorMsg = 'Username must be at most 10 characters long';
-    }
-
-    setErrors(state => ({
-      ...state,
-      username: errorMsg
-    }));
+    // addComment(`${values.username}: ${values.comment}`, gameId);
   };
 
   return (
@@ -90,23 +60,9 @@ const DetailsGame = () => {
       <article className="create-comment">
         <label>Add new comment:</label>
         <form className="form" onSubmit={addCommentHanlder}>
-          <input
-            type="text"
-            name="username"
-            placeholder="Peter Smith"
-            value={values.username}
-            onChange={changeHanlder}
-            onBlur={validateUsername}
-          />
-          {errors.username &&
-            <div style={{ color: 'red' }}>{errors.username}</div>
-          }
-
           <textarea
             name="comment"
             placeholder="Comment......"
-            value={values.comment}
-            onChange={changeHanlder}
           />
           <input
             className="btn submit"
