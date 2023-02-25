@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import * as gameService from './services/gameService';
-import { AuthContext } from './contexts/AuthContext';
+import { AuthProvider } from './contexts/AuthContext';
 
 import './App.css';
 import Catalog from './components/Catalog/Catalog';
@@ -13,19 +13,13 @@ import Header from './components/Header/Header';
 import Home from './components/Home';
 import Login from './components/Login/Login';
 import Logout from './components/Logout/Logout';
-import { useLocalStorage } from './hooks/useLocalStorage';
 import { GameContext } from './contexts/GameContext';
 
 const Register = lazy(() => import('./components/Register/Register'));
 
 function App() {
   const [games, setGames] = useState([]);
-  const [auth, setAuth] = useLocalStorage('auth', {});
   const navigate = useNavigate();
-
-  const userLogin = (authData) => setAuth(authData);
-
-  const userLogout = () => setAuth({});
 
   useEffect(() => {
     gameService.getAll()
@@ -62,7 +56,7 @@ function App() {
   };
 
   return (
-    <AuthContext.Provider value={{ user: auth, userLogin, userLogout }}>
+    <AuthProvider>
       <div id="box">
         <Header />
 
@@ -85,7 +79,7 @@ function App() {
           </main>
         </GameContext.Provider>
       </div>
-    </AuthContext.Provider>
+    </AuthProvider>
   );
 }
 
