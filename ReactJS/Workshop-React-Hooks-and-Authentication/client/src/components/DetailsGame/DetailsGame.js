@@ -5,14 +5,17 @@ import Comment from "./Comment/Comment";
 import * as gameService from "../../services/gameService";
 import * as commentService from "../../services/commentService";
 import { GameContext } from "../../contexts/GameContext";
-
+import { useAuthContext } from "../../contexts/AuthContext";
 
 const DetailsGame = () => {
   const { gameId } = useParams();
   const { addComment, fetchGameDetails, selectGame, removeGameHandler } = useContext(GameContext);
+  const { user } = useAuthContext();
   const navigate = useNavigate();
 
   const currentGame = selectGame(gameId);
+
+  const isOwner = currentGame._ownerId === user._id;
 
   useEffect(() => {
     (async () => {
@@ -68,14 +71,16 @@ const DetailsGame = () => {
             : <p className="no-comment">No comments.</p>
           }
         </div>
-        <div className="buttons">
-          <Link to={`edit`} className="button">
-            Edit
-          </Link>
-          <button onClick={gameDeleteHandler} className="button">
-            Delete
-          </button>
-        </div>
+        {isOwner &&
+          <div className="buttons">
+            <Link to={`edit`} className="button">
+              Edit
+            </Link>
+            <button onClick={gameDeleteHandler} className="button">
+              Delete
+            </button>
+          </div>
+        }
       </div>
 
       {/* Add Comment ( Only for logged-in users, which is not creators of the current game ) */}
