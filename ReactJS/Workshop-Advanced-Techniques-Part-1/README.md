@@ -1,0 +1,3 @@
+- Create Todo List with class components (state, lifecycle methods, context, router with hoc, fetch data from api, this) in class-components folder
+- Use profiler, memo, useMemo and useCallback in optimized-react folder
+- Create routers for owner user and only he can view and use edit and delete buttons at [Workshop-React-Hooks-and-Authentication](https://github.com/RadoslavDimchev/JS-SoftUni/tree/main/ReactJS/Workshop-React-Hooks-and-Authentication)
