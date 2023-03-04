@@ -24,7 +24,7 @@ const DetailsGame = () => {
 
       fetchGameDetails(gameId, { ...gameDetails, comments: gameComments.map(x => `${x.user.email}: ${x.text}`) });
     })();
-  }, [gameId, fetchGameDetails]);
+  }, []);
 
   const addCommentHanlder = (ev) => {
     ev.preventDefault();
