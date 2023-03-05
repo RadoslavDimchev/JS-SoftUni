@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useContext, useState } from 'react';
+import { UserContext } from '../../contexts/UserContext';
 
 import * as userService from '../../services/userService';
 
@@ -10,13 +11,8 @@ import { UserItem } from "./user-item/UserItem";
 import { USER_ACTIONS } from './UserListConstants';
 
 export const UserList = () => {
-  const [users, setUsers] = useState([]);
+  const { users, addUser, setUsers } = useContext(UserContext);
   const [userAction, setUserAction] = useState({ user: null, action: null });
-
-  useEffect(() => {
-    userService.getAll()
-      .then(users => setUsers(users));
-  }, []);
 
   function clickUserHanlder(action, userId) {
     if (userId !== null) {
@@ -34,7 +30,7 @@ export const UserList = () => {
   function createUserHandler(userData) {
     userService.create(userData)
       .then(user => {
-        setUsers(oldUsers => [...oldUsers, user]);
+        addUser(user);
         closeHandler();
       });
   }
