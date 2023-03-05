@@ -1,0 +1,2 @@
+- At tests-error-boundaries folder, create ErrorBoundary component and demo tests with Jest and testing-library/react
+- Create sort for [Workshop-Components-User-List](https://github.com/RadoslavDimchev/JS-SoftUni/tree/main/ReactJS/Workshop-Components-User-List)
